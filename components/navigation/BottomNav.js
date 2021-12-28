@@ -33,6 +33,16 @@ const BottomNav = () => {
                     ),
                 }}
             />
+            <Tab.Screen
+                name="Mes challenges"
+                component={Challenge}
+                options={{
+                    tabBarLabel: 'Mes challenges',
+                    tabBarIcon: ({ color }) => (
+                        <MaterialIcons name="fitness-center" color={color} size={26} />
+                    ),
+                }}
+            />
         </Tab.Navigator>
     );
 }
