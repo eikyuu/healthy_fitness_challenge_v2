@@ -15,6 +15,11 @@ const Home = ({navigation}) => {
                 >
                     <Title>Challenge</Title>
                 </Button>
+                <Button
+                    onPress={() => navigation.navigate('Mes challenges')}
+                >
+                    <Title>Mes challenges</Title>
+                </Button>
             </Container>
         </ImageBackground>
     );
