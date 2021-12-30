@@ -1,12 +1,18 @@
-import Home from "../../pages/home/Home";
+import Home from "../../pages/Home";
 import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
-import Challenge from "../../pages/challenge/Challenge";
+import Challenge from "../../pages/Challenge";
 import {createMaterialBottomTabNavigator} from "@react-navigation/material-bottom-tabs";
+import ConfigChallenge from "../../pages/ConfigChallenge";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {StyleSheet} from "react-native";
+
+const Stack = createNativeStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 const BottomNav = () => {
-    const Tab = createMaterialBottomTabNavigator();
 
     return (
+        <>
         <Tab.Navigator
             initialRouteName="Home"
             activeColor="#FFFFFF"
@@ -17,7 +23,9 @@ const BottomNav = () => {
                 name="Home"
                 component={Home}
                 options={{
+                    title: '',
                     tabBarLabel: 'Accueil',
+                    tabBarVisible: false,
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="home" color={color} size={26} />
                     ),
@@ -44,7 +52,12 @@ const BottomNav = () => {
                 }}
             />
         </Tab.Navigator>
+        </>
     );
 }
-
+const styles = StyleSheet.create({
+    none: {
+        display:"none"
+    },
+});
 export default BottomNav
