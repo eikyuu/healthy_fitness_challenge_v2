@@ -3,7 +3,7 @@ import Title from "../global/Title";
 
 const TitleChallenge = styled(Title)`
   text-align: center;
-  margin-bottom: 10px;
+  margin: 10% 0 25px 0;
 `;
 
 export default TitleChallenge;
