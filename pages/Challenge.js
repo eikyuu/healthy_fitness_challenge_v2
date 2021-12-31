@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import ImageBackground from "../styles/global/ImageBackground";
 import Container from "../styles/global/Container";
 import Title from "../styles/global/Title";
-import Button from "../styles/Home/Button";
 import {
     Image,
     ScrollView,
@@ -15,7 +14,6 @@ import {mediaImage} from "../assets/images";
 
 const Challenge = ({navigation}) => {
     const [media, setMedia] = useState(mediaImage);
-
     let length = media.data.findIndex(
         (element) => element.completed === true,
     );
@@ -60,7 +58,9 @@ const Challenge = ({navigation}) => {
                     ))}
                     {length >= 0 ? (
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('ConfigChallenge')}>
+                            onPress={() => navigation.navigate('ConfigChallenge', {
+                                challenges : media
+                            })}>
                             <Title style={styles.buttonValidate} >Suivant</Title>
                         </TouchableOpacity>
                     ) : null}
