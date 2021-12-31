@@ -12,13 +12,6 @@ const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const BottomNav = () => {
-    function DetailsScreen() {
-        return (
-            <Title>Details Screen</Title>
-
-        );
-    }
-
     return (
         <>
             <Tab.Navigator
