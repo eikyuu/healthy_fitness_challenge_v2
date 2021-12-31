@@ -5,7 +5,7 @@ import {createMaterialBottomTabNavigator} from "@react-navigation/material-botto
 import ConfigChallenge from "../../pages/ConfigChallenge";
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {StyleSheet} from "react-native";
-import Title from "../../styles/global/Title";
+import Text from "../../styles/global/Text";
 import MyChallenge from "../../pages/MyChallenge";
 
 const Stack = createNativeStackNavigator();

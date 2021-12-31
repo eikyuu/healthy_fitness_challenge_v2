@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import ImageBackground from "../styles/global/ImageBackground";
 import Container from "../styles/global/Container";
-import Title from "../styles/global/Title";
+import Text from "../styles/global/Text";
 import {
     Image,
     ScrollView,
-    Text,
     TouchableOpacity,
     StyleSheet
 } from 'react-native';
@@ -61,7 +60,7 @@ const Challenge = ({navigation}) => {
                             onPress={() => navigation.navigate('ConfigChallenge', {
                                 challenges : media
                             })}>
-                            <Title style={styles.buttonValidate} >Suivant</Title>
+                            <Text style={styles.buttonValidate} >Suivant</Text>
                         </TouchableOpacity>
                     ) : null}
                 </Container>

@@ -1,7 +1,7 @@
 import React from "react";
 import Container from "../styles/global/Container";
 import Button from "../styles/Home/Button";
-import Title from "../styles/global/Title";
+import Text from "../styles/global/Text";
 import ImageBackground from "../styles/global/ImageBackground";
 
 const Home = ({navigation}) => {
@@ -13,12 +13,12 @@ const Home = ({navigation}) => {
                 <Button
                     onPress={() => navigation.navigate('Challenge')}
                 >
-                    <Title>Crée un challenge</Title>
+                    <Text>Crée un challenge</Text>
                 </Button>
                 <Button
                     onPress={() => navigation.navigate('Mes challenges')}
                 >
-                    <Title>Mes challenges</Title>
+                    <Text>Mes challenges</Text>
                 </Button>
             </Container>
         </ImageBackground>
