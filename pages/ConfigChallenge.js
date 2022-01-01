@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Container from "../styles/global/Container";
 import Text from "../styles/global/Text";
 import ImageBackground from "../styles/global/ImageBackground";
@@ -12,8 +12,14 @@ import {
 import TitleChallenge from "../styles/challenge/TitleChallenge";
 const ConfigChallenge = ({navigation, route}) => {
     const {challenges } = route.params;
-    const [text, onChangeText] = React.useState("Useless Text");
-
+    const [value, setValue] = useState({
+        idChallenge: 0,
+        name: '',
+        days: '',
+        rep: '',
+        reps: '',
+        miniDays: 0,
+    });
     console.log(challenges)
     return (
         <ImageBackground
@@ -25,30 +31,54 @@ const ConfigChallenge = ({navigation, route}) => {
                     <Text>Nom de votre challenge</Text>
                     <TextInput
                         style={styles.buttonConfig}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={(text) => setValue({...value, name: text})}
+                        value={value.name}
                     />
-
-                    <Text>Durée votre challenge</Text>
+                    <Text>Durée du challenge</Text>
                     <TextInput
                         style={styles.buttonConfig}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={(text) => setValue({...value, days: text})}
+                        value={value.days}
+                        keyboardType={'numeric'}
                     />
-
-                    <Text>Durée votre challenge</Text>
+                    <Text>Premiere repetition</Text>
                     <TextInput
                         style={styles.buttonConfig}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={(text) => setValue({...value, rep: text})}
+                        value={value.rep}
+                        keyboardType={'numeric'}
                     />
-
-                    <Text>Durée votre challenge</Text>
+                    <Text>Repetition en + par jours</Text>
                     <TextInput
                         style={styles.buttonConfig}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={(text) => setValue({...value, reps: text})}
+                        value={value.reps}
+                        keyboardType={'numeric'}
                     />
+                    <TouchableOpacity
+                       // onPress={() => {
+                         //   navigation.navigate('MyChallengeScreen');
+                        //}}
+                    >
+                        <View>
+                            <Text style={styles.buttonValidate}>Suivant</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <View style={styles.buttonRecap}>
+
+                        <View>
+                            <Text>Challenge {value.name}</Text>
+                            <Text>Durée {value.days} JOURS</Text>
+                            <Text>
+                                Aujourd'hui {value.rep} répetitions
+                            </Text>
+                            <Text>
+                                +{value.reps} répetitions par jours
+                            </Text>
+                        </View>
+
+                    </View>
+
                 </Container>
             </ScrollView>
 
@@ -62,6 +92,31 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
+    },
+    buttonRecap: {
+        backgroundColor: '#D8F3DC',
+        height: 150,
+        width: 350,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#74C69D',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+    },
+    buttonValidate: {
+        backgroundColor: 'white',
+        height: 40,
+        width: 350,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#74C69D',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        marginTop: 20,
+        textAlign: 'center',
+        marginBottom: 25,
     },
     buttonConfig: {
         backgroundColor: '#FFFFFF',
