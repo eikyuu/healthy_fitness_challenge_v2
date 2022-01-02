@@ -21,7 +21,20 @@ const BottomNav = () => {
                 barStyle={{backgroundColor: '#52B788'}}
                 screenOptions={{headerShown: false}}
             >
-                <Tab.Screen name="Accueil"
+
+                <Tab.Screen
+                    name="Accueil"
+                    component={Home}
+                    options={{
+                        tabBarLabel: 'Accueil',
+                        tabBarIcon: ({color}) => (
+                            <MaterialIcons name="fitness-center" color={color} size={26}/>
+                        ),
+                    }}
+                />
+
+
+                <Tab.Screen name="Challenge"
                             options={{
                                 tabBarIcon: ({color}) => (
                                     <MaterialCommunityIcons name="home" color={color} size={26}/>
@@ -30,26 +43,12 @@ const BottomNav = () => {
                 >
                     {() => (
                         <Stack.Navigator screenOptions={{headerShown: false}}>
-                            <Stack.Screen
-                                name="accueil"
-                                component={Home}
-                            />
                             <Stack.Screen name="Challenge" component={Challenge}/>
                             <Stack.Screen name="ConfigChallenge" component={ConfigChallenge}/>
                         </Stack.Navigator>
                     )}
                 </Tab.Screen>
 
-                <Tab.Screen
-                    name="Créé un challenge"
-                    component={Challenge}
-                    options={{
-                        tabBarLabel: 'Crée un challenge',
-                        tabBarIcon: ({color}) => (
-                            <MaterialIcons name="fitness-center" color={color} size={26}/>
-                        ),
-                    }}
-                />
                 <Tab.Screen
                     name="Mes challenges"
                     component={MyChallenge}
