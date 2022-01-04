@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     StyleSheet
 } from 'react-native';
-import TitleChallenge from "../styles/challenge/TitleChallenge";
+import TitleChallenge from "../styles/page/challenge/TitleChallenge";
 import {mediaImage} from "../assets/images";
 
 const Challenge = ({navigation}) => {

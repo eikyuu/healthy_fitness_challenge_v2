@@ -9,7 +9,8 @@ import {
     TextInput,
     TouchableOpacity,
 } from 'react-native-gesture-handler';
-import TitleChallenge from "../styles/challenge/TitleChallenge";
+import TitleChallenge from "../styles/page/challenge/TitleChallenge";
+import ButtonRecap from "../styles/page/configChallenge/ButtonRecap";
 const ConfigChallenge = ({navigation, route}) => {
     const {challenges } = route.params;
     const [value, setValue] = useState({
@@ -64,7 +65,7 @@ const ConfigChallenge = ({navigation, route}) => {
                             <Text style={styles.buttonValidate}>Suivant</Text>
                         </View>
                     </TouchableOpacity>
-                    <View style={styles.buttonRecap}>
+                    <ButtonRecap>
 
                         <View>
                             <Text>Challenge {value.name}</Text>
@@ -77,7 +78,7 @@ const ConfigChallenge = ({navigation, route}) => {
                             </Text>
                         </View>
 
-                    </View>
+                    </ButtonRecap>
 
                 </Container>
             </ScrollView>
@@ -87,12 +88,6 @@ const ConfigChallenge = ({navigation, route}) => {
 }
 
 const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        padding: 10,
-    },
     buttonRecap: {
         backgroundColor: '#D8F3DC',
         height: 150,

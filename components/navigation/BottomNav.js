@@ -1,12 +1,10 @@
 import Home from "../../pages/Home";
 import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
-import Challenge from "../../pages/Challenge";
 import {createMaterialBottomTabNavigator} from "@react-navigation/material-bottom-tabs";
 import ConfigChallenge from "../../pages/ConfigChallenge";
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {StyleSheet} from "react-native";
-import Text from "../../styles/global/Text";
 import MyChallenge from "../../pages/MyChallenge";
+import Challenge from "../../pages/Challenge";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -15,7 +13,7 @@ const BottomNav = () => {
     return (
         <>
             <Tab.Navigator
-                initialRouteName="Acceuil"
+                initialRouteName="Accueil"
                 activeColor="#FFFFFF"
                 inactiveColor="#86ccac"
                 barStyle={{backgroundColor: '#52B788'}}
@@ -63,9 +61,5 @@ const BottomNav = () => {
         </>
     );
 }
-const styles = StyleSheet.create({
-    none: {
-        display: "none"
-    },
-});
+
 export default BottomNav
