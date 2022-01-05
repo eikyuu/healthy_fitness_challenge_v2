@@ -11,6 +11,8 @@ import {
 } from 'react-native-gesture-handler';
 import TitleChallenge from "../styles/page/challenge/TitleChallenge";
 import ButtonRecap from "../styles/page/configChallenge/ButtonRecap";
+import ButtonValidate from "../styles/page/configChallenge/ButtonValidate";
+import ButtonConfig from "../styles/page/configChallenge/ButtonConfig";
 const ConfigChallenge = ({navigation, route}) => {
     const {challenges } = route.params;
     const [value, setValue] = useState({
@@ -30,28 +32,24 @@ const ConfigChallenge = ({navigation, route}) => {
                 <Container>
                     <TitleChallenge>Configurer votre challenge</TitleChallenge>
                     <Text>Nom de votre challenge</Text>
-                    <TextInput
-                        style={styles.buttonConfig}
+                    <ButtonConfig
                         onChangeText={(text) => setValue({...value, name: text})}
                         value={value.name}
                     />
                     <Text>Durée du challenge</Text>
-                    <TextInput
-                        style={styles.buttonConfig}
+                    <ButtonConfig
                         onChangeText={(text) => setValue({...value, days: text})}
                         value={value.days}
                         keyboardType={'numeric'}
                     />
                     <Text>Premiere repetition</Text>
-                    <TextInput
-                        style={styles.buttonConfig}
+                    <ButtonConfig
                         onChangeText={(text) => setValue({...value, rep: text})}
                         value={value.rep}
                         keyboardType={'numeric'}
                     />
                     <Text>Repetition en + par jours</Text>
-                    <TextInput
-                        style={styles.buttonConfig}
+                    <ButtonConfig
                         onChangeText={(text) => setValue({...value, reps: text})}
                         value={value.reps}
                         keyboardType={'numeric'}
@@ -62,11 +60,10 @@ const ConfigChallenge = ({navigation, route}) => {
                         //}}
                     >
                         <View>
-                            <Text style={styles.buttonValidate}>Suivant</Text>
+                            <ButtonValidate>Suivant</ButtonValidate>
                         </View>
                     </TouchableOpacity>
                     <ButtonRecap>
-
                         <View>
                             <Text>Challenge {value.name}</Text>
                             <Text>Durée {value.days} JOURS</Text>
@@ -77,7 +74,6 @@ const ConfigChallenge = ({navigation, route}) => {
                                 +{value.reps} répetitions par jours
                             </Text>
                         </View>
-
                     </ButtonRecap>
 
                 </Container>
@@ -87,44 +83,4 @@ const ConfigChallenge = ({navigation, route}) => {
     );
 }
 
-const styles = StyleSheet.create({
-    buttonRecap: {
-        backgroundColor: '#D8F3DC',
-        height: 150,
-        width: 350,
-        borderRadius: 10,
-        borderWidth: 2,
-        borderColor: '#74C69D',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
-    },
-    buttonValidate: {
-        backgroundColor: 'white',
-        height: 40,
-        width: 350,
-        borderRadius: 10,
-        borderWidth: 2,
-        borderColor: '#74C69D',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
-        marginTop: 20,
-        textAlign: 'center',
-        marginBottom: 25,
-    },
-    buttonConfig: {
-        backgroundColor: '#FFFFFF',
-        height: 50,
-        width: 350,
-        borderRadius: 10,
-        borderWidth: 2,
-        borderColor: '#74C69D',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
-        marginTop: 10,
-        marginBottom: 10
-    },
-});
 export default ConfigChallenge

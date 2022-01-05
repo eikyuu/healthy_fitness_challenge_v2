@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 const ButtonRecap = styled.View`
-  background-color: #D8F3DC;
+  backgroundColor: #D8F3DC;
   height: 150px;
   width: 350px;
   border-radius: 10px;
