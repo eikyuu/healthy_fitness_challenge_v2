@@ -41,7 +41,7 @@ const BottomNav = () => {
                 >
                     {() => (
                         <Stack.Navigator screenOptions={{headerShown: false}}>
-                            <Stack.Screen name="Challenge" component={Challenge}/>
+                            <Stack.Screen name="createChallenge" component={Challenge}/>
                             <Stack.Screen name="ConfigChallenge" component={ConfigChallenge}/>
                         </Stack.Navigator>
                     )}
