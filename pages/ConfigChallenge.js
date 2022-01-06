@@ -14,7 +14,7 @@ import ButtonRecap from "../styles/page/configChallenge/ButtonRecap";
 import ButtonValidate from "../styles/page/configChallenge/ButtonValidate";
 import ButtonConfig from "../styles/page/configChallenge/ButtonConfig";
 const ConfigChallenge = ({navigation, route}) => {
-    const {challenges } = route.params;
+    const {challenges} = route.params;
     const [value, setValue] = useState({
         idChallenge: 0,
         name: '',
@@ -23,7 +23,6 @@ const ConfigChallenge = ({navigation, route}) => {
         reps: '',
         miniDays: 0,
     });
-    console.log(challenges)
     return (
         <ImageBackground
             source={require('../assets/images/backgroundImage.jpg')} resizeMode="cover"
@@ -55,9 +54,11 @@ const ConfigChallenge = ({navigation, route}) => {
                         keyboardType={'numeric'}
                     />
                     <TouchableOpacity
-                       // onPress={() => {
-                         //   navigation.navigate('MyChallengeScreen');
-                        //}}
+                       onPress={() => {
+                           navigation.navigate('MyChallenge',{
+                               configChallenge : value
+                           });
+                        }}
                     >
                         <View>
                             <ButtonValidate>Suivant</ButtonValidate>

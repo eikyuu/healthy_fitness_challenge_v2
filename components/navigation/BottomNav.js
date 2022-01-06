@@ -48,7 +48,7 @@ const BottomNav = () => {
                 </Tab.Screen>
 
                 <Tab.Screen
-                    name="Mes challenges"
+                    name="MyChallenge"
                     component={MyChallenge}
                     options={{
                         tabBarLabel: 'Mes challenges',

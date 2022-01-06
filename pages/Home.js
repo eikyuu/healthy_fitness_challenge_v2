@@ -16,7 +16,7 @@ const Home = ({navigation}) => {
                     <Text>Crée un challenge</Text>
                 </Button>
                 <Button
-                    onPress={() => navigation.navigate('Mes challenges')}
+                    onPress={() => navigation.navigate('MyChallenge')}
                 >
                     <Text>Mes challenges</Text>
                 </Button>
