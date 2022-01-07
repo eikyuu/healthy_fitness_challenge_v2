@@ -20,19 +20,18 @@ const BottomNav = () => {
                 screenOptions={{headerShown: false}}
             >
 
-                <Tab.Screen
-                    name="Accueil"
-                    component={Home}
-                    options={{
-                        tabBarLabel: 'Accueil',
-                        tabBarIcon: ({color}) => (
-                            <MaterialIcons name="fitness-center" color={color} size={26}/>
-                        ),
-                    }}
-                />
+                {/*<Tab.Screen*/}
+                {/*    name="Accueil"*/}
+                {/*    component={Home}*/}
+                {/*    options={{*/}
+                {/*        tabBarLabel: 'Accueil',*/}
+                {/*        tabBarIcon: ({color}) => (*/}
+                {/*            <MaterialIcons name="fitness-center" color={color} size={26}/>*/}
+                {/*        ),*/}
+                {/*    }}*/}
+                {/*/>*/}
 
-
-                <Tab.Screen name="Challenge"
+                <Tab.Screen name="Accueil"
                             options={{
                                 tabBarIcon: ({color}) => (
                                     <MaterialCommunityIcons name="home" color={color} size={26}/>
@@ -41,14 +40,16 @@ const BottomNav = () => {
                 >
                     {() => (
                         <Stack.Navigator screenOptions={{headerShown: false}}>
+                            <Stack.Screen name="home" component={Home}/>
                             <Stack.Screen name="createChallenge" component={Challenge}/>
-                            <Stack.Screen name="ConfigChallenge" component={ConfigChallenge}/>
+
+                            <Stack.Screen name="configChallenge" component={ConfigChallenge}/>
                         </Stack.Navigator>
                     )}
                 </Tab.Screen>
 
                 <Tab.Screen
-                    name="MyChallenge"
+                    name="myChallenge"
                     component={MyChallenge}
                     options={{
                         tabBarLabel: 'Mes challenges',

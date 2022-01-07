@@ -11,12 +11,12 @@ const Home = ({navigation}) => {
         >
             <Container>
                 <Button
-                    onPress={() => navigation.navigate('Challenge')}
+                    onPress={() => navigation.navigate('createChallenge')}
                 >
                     <Text>Crée un challenge</Text>
                 </Button>
                 <Button
-                    onPress={() => navigation.navigate('MyChallenge')}
+                    onPress={() => navigation.navigate('myChallenge')}
                 >
                     <Text>Mes challenges</Text>
                 </Button>

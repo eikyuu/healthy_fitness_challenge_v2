@@ -55,7 +55,7 @@ const ConfigChallenge = ({navigation, route}) => {
                     />
                     <TouchableOpacity
                        onPress={() => {
-                           navigation.navigate('MyChallenge',{
+                           navigation.navigate('myChallenge',{
                                configChallenge : value
                            });
                         }}

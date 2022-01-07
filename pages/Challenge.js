@@ -57,7 +57,7 @@ const Challenge = ({navigation}) => {
                     ))}
                     {length >= 0 ? (
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('ConfigChallenge', {
+                            onPress={() => navigation.navigate('configChallenge', {
                                 challenges : media
                             })}>
                             <Text style={styles.buttonValidate} >Suivant</Text>
