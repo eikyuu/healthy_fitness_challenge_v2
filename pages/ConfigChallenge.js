@@ -3,7 +3,7 @@ import Container from "../styles/global/Container";
 import Text from "../styles/global/Text";
 import ImageBackground from "../styles/global/ImageBackground";
 import {View, StyleSheet} from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     ScrollView,
     TextInput,
@@ -13,16 +13,17 @@ import TitleChallenge from "../styles/page/challenge/TitleChallenge";
 import ButtonRecap from "../styles/page/configChallenge/ButtonRecap";
 import ButtonValidate from "../styles/page/configChallenge/ButtonValidate";
 import ButtonConfig from "../styles/page/configChallenge/ButtonConfig";
+import {database} from "../service/database";
 const ConfigChallenge = ({navigation, route}) => {
-    const {challenges} = route.params;
+    const {exercise} = route.params;
+
     const [value, setValue] = useState({
-        idChallenge: 0,
         name: '',
-        days: '',
-        rep: '',
-        reps: '',
-        miniDays: 0,
+        duration: '',
+        firstRepetition: '',
+        repetition: '',
     });
+
     return (
         <ImageBackground
             source={require('../assets/images/backgroundImage.jpg')} resizeMode="cover"
@@ -37,27 +38,26 @@ const ConfigChallenge = ({navigation, route}) => {
                     />
                     <Text>Durée du challenge</Text>
                     <ButtonConfig
-                        onChangeText={(text) => setValue({...value, days: text})}
-                        value={value.days}
+                        onChangeText={(text) => setValue({...value, duration: text})}
+                        value={value.duration}
                         keyboardType={'numeric'}
                     />
                     <Text>Premiere repetition</Text>
                     <ButtonConfig
-                        onChangeText={(text) => setValue({...value, rep: text})}
-                        value={value.rep}
+                        onChangeText={(text) => setValue({...value, firstRepetition: text})}
+                        value={value.firstRepetition}
                         keyboardType={'numeric'}
                     />
                     <Text>Repetition en + par jours</Text>
                     <ButtonConfig
-                        onChangeText={(text) => setValue({...value, reps: text})}
-                        value={value.reps}
+                        onChangeText={(text) => setValue({...value, repetition: text})}
+                        value={value.repetition}
                         keyboardType={'numeric'}
                     />
                     <TouchableOpacity
                        onPress={() => {
-                           navigation.navigate('myChallenge',{
-                               configChallenge : value
-                           });
+                           navigation.navigate('myChallenge');
+                           database.insertChallenge(value.name, value.duration, value.firstRepetition, value.repetition,0, JSON.stringify(exercise))
                         }}
                     >
                         <View>
@@ -67,19 +67,18 @@ const ConfigChallenge = ({navigation, route}) => {
                     <ButtonRecap>
                         <View>
                             <Text>Challenge {value.name}</Text>
-                            <Text>Durée {value.days} JOURS</Text>
+                            <Text>Durée {value.duration} JOURS</Text>
                             <Text>
-                                Aujourd'hui {value.rep} répetitions
+                                Aujourd'hui {value.firstRepetition} répetitions
                             </Text>
                             <Text>
-                                +{value.reps} répetitions par jours
+                                +{value.repetition} répetitions par jours
                             </Text>
                         </View>
                     </ButtonRecap>
 
                 </Container>
             </ScrollView>
-
         </ImageBackground>
     );
 }

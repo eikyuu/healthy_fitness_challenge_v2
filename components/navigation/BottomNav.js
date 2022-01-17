@@ -5,6 +5,7 @@ import ConfigChallenge from "../../pages/ConfigChallenge";
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MyChallenge from "../../pages/MyChallenge";
 import Challenge from "../../pages/Challenge";
+import DetailChallenge from "../../pages/DetailChallenge";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -42,8 +43,8 @@ const BottomNav = () => {
                         <Stack.Navigator screenOptions={{headerShown: false}}>
                             <Stack.Screen name="home" component={Home}/>
                             <Stack.Screen name="createChallenge" component={Challenge}/>
-
                             <Stack.Screen name="configChallenge" component={ConfigChallenge}/>
+                            <Stack.Screen name="detailChallenge" component={DetailChallenge}/>
                         </Stack.Navigator>
                     )}
                 </Tab.Screen>

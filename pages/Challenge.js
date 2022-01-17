@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import TitleChallenge from "../styles/page/challenge/TitleChallenge";
 import {mediaImage} from "../assets/images";
+import _ from "lodash";
 
 const Challenge = ({navigation}) => {
     const [media, setMedia] = useState(mediaImage);
@@ -58,7 +59,7 @@ const Challenge = ({navigation}) => {
                     {length >= 0 ? (
                         <TouchableOpacity
                             onPress={() => navigation.navigate('configChallenge', {
-                                challenges : media
+                                exercise : _.filter(media.data,function(o){return o.completed;})
                             })}>
                             <Text style={styles.buttonValidate} >Suivant</Text>
                         </TouchableOpacity>
