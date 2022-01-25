@@ -20,18 +20,6 @@ const BottomNav = () => {
                 barStyle={{backgroundColor: '#52B788'}}
                 screenOptions={{headerShown: false}}
             >
-
-                {/*<Tab.Screen*/}
-                {/*    name="Accueil"*/}
-                {/*    component={Home}*/}
-                {/*    options={{*/}
-                {/*        tabBarLabel: 'Accueil',*/}
-                {/*        tabBarIcon: ({color}) => (*/}
-                {/*            <MaterialIcons name="fitness-center" color={color} size={26}/>*/}
-                {/*        ),*/}
-                {/*    }}*/}
-                {/*/>*/}
-
                 <Tab.Screen name="Accueil"
                             options={{
                                 tabBarIcon: ({color}) => (

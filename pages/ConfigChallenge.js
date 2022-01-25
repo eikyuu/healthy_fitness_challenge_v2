@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Container from "../styles/global/Container";
 import Text from "../styles/global/Text";
 import ImageBackground from "../styles/global/ImageBackground";
@@ -14,8 +14,21 @@ import ButtonRecap from "../styles/page/configChallenge/ButtonRecap";
 import ButtonValidate from "../styles/page/configChallenge/ButtonValidate";
 import ButtonConfig from "../styles/page/configChallenge/ButtonConfig";
 import {database} from "../service/database";
+import _ from "lodash";
 const ConfigChallenge = ({navigation, route}) => {
     const {exercise} = route.params;
+    const [finalExercise, setFinalExercise] = useState([]);
+    console.log(finalExercise)
+    useEffect(() => {
+        for (let i = 0; i < exercise.length; i++) {
+            if (exercise) {
+                const source = { title : exercise[i].title , done: 0 };
+                setFinalExercise(prevState => (
+                       [...prevState, source]
+                    ))
+            }
+        }
+    },[]);
 
     const [value, setValue] = useState({
         name: '',
@@ -57,7 +70,7 @@ const ConfigChallenge = ({navigation, route}) => {
                     <TouchableOpacity
                        onPress={() => {
                            navigation.navigate('myChallenge');
-                           database.insertChallenge(value.name, value.duration, value.firstRepetition, value.repetition,0, JSON.stringify(exercise))
+                           database.insertChallenge(value.name, value.duration, value.firstRepetition, value.repetition,0, JSON.stringify(finalExercise))
                         }}
                     >
                         <View>

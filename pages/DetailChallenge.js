@@ -1,21 +1,19 @@
 import React, {useEffect, useState} from "react";
 import ImageBackground from "../styles/global/ImageBackground";
 import {database} from "../service/database";
-import ViewTodo from "../styles/page/myChallenge/ViewTodo";
 import Text from "../styles/global/Text";
 import {ScrollView} from "react-native-gesture-handler";
 import Container from "../styles/global/Container";
 import TitleChallenge from "../styles/page/challenge/TitleChallenge";
-import {mediaImage} from "../assets/images";
-import {Image, TouchableOpacity} from "react-native";
-import _ from "lodash";
+import {StyleSheet} from "react-native";
+import ButtonCheck from "../components/detailChallenge/ButtonCheck";
 
 
 const DetailChallenge = ({ navigation, route}) => {
+    const [forceUpdate, setForceUpdate] = useState(0);
+    console.log(forceUpdate)
     const {id} = route.params;
     const [challenge, setChallenge] = useState();
-    const [media, setMedia] = useState(mediaImage);
-    const [finalMedia, setFinalMedia] = useState([]);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
@@ -23,12 +21,31 @@ const DetailChallenge = ({ navigation, route}) => {
         });
         // Return the function to unsubscribe from the event so it gets removed on unmount
         return unsubscribe;
-    }, [navigation])
+    }, [navigation, forceUpdate])
 
     useEffect(() => {
-        if (challenge)
-            setFinalMedia(_.filter(media.data, ['title', JSON.parse(challenge[0].exercise)[0].title]));
-    }, [challenge])
+        database.fetchChallengeById(setChallenge, id);
+    }, [forceUpdate])
+
+
+    const nbrRepetition = () => {
+        {/*      challenge[0].remaining === 0 ? challenge[0].first_repetition + " répétitions par exercice" : challenge[0].repetition*/}
+        if (challenge && challenge[0])
+            if (challenge[0].remaining === 0)
+                return (
+                    <Text>{challenge[0].first_repetition} répétitions par exercice</Text>
+                )
+            else return (
+                <Text>{challenge[0].total_repetition}</Text>
+                )
+    }
+
+    const calculTotalEstimation = () => {
+        if (challenge && challenge[0])
+            if (challenge[0].remaining === 0)
+                console.log(challenge[0].first_repetition + challenge[0].repetition)
+    }
+
     return (
         <ImageBackground
             source={require('../assets/images/backgroundImage.jpg')} resizeMode="cover"
@@ -43,32 +60,8 @@ const DetailChallenge = ({ navigation, route}) => {
                             </Text>
                         </React.Fragment>
                     }
-                    { challenge &&
-                        JSON.parse(challenge[0].exercise).map((item, index) => (
-                                <ViewTodo
-                                    key={index.toString()}
-                                    // onPress={() => {
-                                    //     navigation.navigate('detailChallenge', {
-                                    //         id: item.id
-                                    //     });
-                                    // }}
-                                    // activeOpacity={1}
-                                >
-                                    <Text inputColor="black">
-                                        {item.title}
-                                    </Text>
-                                </ViewTodo>
-
-                        ))
-                    }
-                    {finalMedia.map((index) => (
-                        <TouchableOpacity
-                            key={index.id}
-                            activeOpacity={1}
-                        >
-                            <Image source={index.img}/>
-                        </TouchableOpacity>
-                    ))}
+                    <ButtonCheck challenge={challenge} setForceUpdate={setForceUpdate}/>
+                    {nbrRepetition()}
                 </Container>
             </ScrollView>
         </ImageBackground>

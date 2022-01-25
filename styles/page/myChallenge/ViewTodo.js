@@ -1,6 +1,9 @@
 import styled from 'styled-components/native';
 
 const ViewTodo = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: white;
   height: 65px;
   width: 98%;

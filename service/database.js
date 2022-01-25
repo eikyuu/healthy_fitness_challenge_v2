@@ -9,7 +9,7 @@ const setupDatabaseAsync = async () => {
     return new Promise((resolve, reject) => {
         db.transaction(tx => {
                 tx.executeSql(
-                    'create table if not exists challenge (id integer primary key not null, name varchar(255), duration integer, first_repetition integer, repetition integer, remaining integer, exercise JSON );'
+                    'create table if not exists challenge (id integer primary key not null, name varchar(255), duration integer, first_repetition integer, repetition integer, remaining integer, exercise JSON, total_repetition integer );'
                 );
             },
             (_, error) => { console.log("db error creating tables"); console.log(error); reject(error) },
@@ -23,6 +23,16 @@ const insertChallenge = (name, duration,firstRepetition, repetition, remaining, 
             tx.executeSql( 'insert into challenge (name, duration, first_repetition, repetition, remaining, exercise) values (?, ?, ?, ?, ?, ?)', [name, duration, firstRepetition, repetition, remaining, exercise] );
         },
         (t, error) => { console.log("db error insertUser"); console.log(error);},
+        (t, success) => { console.log("success"); }
+    )
+}
+
+const updateExo = (name, exercise) => {
+    db.transaction(
+        (tx) => {
+            tx.executeSql(`UPDATE challenge set exercise = '${exercise}' WHERE name = '${name}'`);
+        },
+        (t, error) => { console.log("db error update"); console.log(error);},
         (t, success) => { console.log("success"); }
     )
 }
@@ -60,6 +70,7 @@ const fetchChallengeById = (setUserFunc, id) => {
 }
 
 export const database = {
+    updateExo,
     setupDatabaseAsync,
     insertChallenge,
     fetchChallenge,
