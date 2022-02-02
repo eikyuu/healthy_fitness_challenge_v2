@@ -4,7 +4,7 @@ const ViewTodo = styled.TouchableOpacity`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: white;
+  background-color: ${props => props.inputColor || "white"};
   height: 65px;
   width: 98%;
   border-bottom-width: 1.5px;

@@ -70,7 +70,7 @@ const ConfigChallenge = ({navigation, route}) => {
                     <TouchableOpacity
                        onPress={() => {
                            navigation.navigate('myChallenge');
-                           database.insertChallenge(value.name, value.duration, value.firstRepetition, value.repetition,0, JSON.stringify(finalExercise))
+                           database.insertChallenge(value.name, value.duration, value.firstRepetition, value.repetition,0, JSON.stringify(finalExercise), new Date().toLocaleString())
                         }}
                     >
                         <View>

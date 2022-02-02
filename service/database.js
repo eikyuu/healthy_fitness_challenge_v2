@@ -9,7 +9,7 @@ const setupDatabaseAsync = async () => {
     return new Promise((resolve, reject) => {
         db.transaction(tx => {
                 tx.executeSql(
-                    'create table if not exists challenge (id integer primary key not null, name varchar(255), duration integer, first_repetition integer, repetition integer, remaining integer, exercise JSON, total_repetition integer );'
+                    'create table if not exists challenge (id integer primary key not null, name varchar(255), duration integer, first_repetition integer, repetition integer, remaining integer, exercise JSON, total_repetition integer, date datetime );'
                 );
             },
             (_, error) => { console.log("db error creating tables"); console.log(error); reject(error) },
@@ -18,9 +18,9 @@ const setupDatabaseAsync = async () => {
     })
 }
 
-const insertChallenge = (name, duration,firstRepetition, repetition, remaining, exercise, successFunc) => {
+const insertChallenge = (name, duration,firstRepetition, repetition, remaining, exercise, date, successFunc) => {
     db.transaction( tx => {
-            tx.executeSql( 'insert into challenge (name, duration, first_repetition, repetition, remaining, exercise) values (?, ?, ?, ?, ?, ?)', [name, duration, firstRepetition, repetition, remaining, exercise] );
+            tx.executeSql( 'insert into challenge (name, duration, first_repetition, repetition, remaining, exercise, date) values (?, ?, ?, ?, ?, ?, ?)', [name, duration, firstRepetition, repetition, remaining, exercise, date] );
         },
         (t, error) => { console.log("db error insertUser"); console.log(error);},
         (t, success) => { console.log("success"); }
@@ -31,6 +31,16 @@ const updateExo = (name, exercise) => {
     db.transaction(
         (tx) => {
             tx.executeSql(`UPDATE challenge set exercise = '${exercise}' WHERE name = '${name}'`);
+        },
+        (t, error) => { console.log("db error update"); console.log(error);},
+        (t, success) => { console.log("success"); }
+    )
+}
+
+const updateNextDay = (name, exercise, remaining) => {
+    db.transaction(
+        (tx) => {
+            tx.executeSql(`UPDATE challenge set exercise = '${exercise}', remaining = '${remaining}' WHERE name = '${name}'`);
         },
         (t, error) => { console.log("db error update"); console.log(error);},
         (t, success) => { console.log("success"); }
@@ -74,5 +84,6 @@ export const database = {
     setupDatabaseAsync,
     insertChallenge,
     fetchChallenge,
-    fetchChallengeById
+    fetchChallengeById,
+    updateNextDay
 }

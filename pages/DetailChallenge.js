@@ -2,18 +2,19 @@ import React, {useEffect, useState} from "react";
 import ImageBackground from "../styles/global/ImageBackground";
 import {database} from "../service/database";
 import Text from "../styles/global/Text";
-import {ScrollView} from "react-native-gesture-handler";
+import {ScrollView, TouchableOpacity} from "react-native-gesture-handler";
 import Container from "../styles/global/Container";
 import TitleChallenge from "../styles/page/challenge/TitleChallenge";
-import {StyleSheet} from "react-native";
 import ButtonCheck from "../components/detailChallenge/ButtonCheck";
+import {View} from "react-native";
+import ButtonValidate from "../styles/page/configChallenge/ButtonValidate";
 
 
 const DetailChallenge = ({ navigation, route}) => {
     const [forceUpdate, setForceUpdate] = useState(0);
-    console.log(forceUpdate)
     const {id} = route.params;
     const [challenge, setChallenge] = useState();
+    const [nextDay, setNextDay] = useState(0);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
@@ -21,15 +22,23 @@ const DetailChallenge = ({ navigation, route}) => {
         });
         // Return the function to unsubscribe from the event so it gets removed on unmount
         return unsubscribe;
-    }, [navigation, forceUpdate])
+    }, [navigation, forceUpdate, id])
 
     useEffect(() => {
         database.fetchChallengeById(setChallenge, id);
     }, [forceUpdate])
 
+    useEffect(() => {
+        if (challenge && challenge[0]) {
+            let array = [];
+            for (let i = 0; i < JSON.parse(challenge[0].exercise).length; i++) {
+                array = [...array, JSON.parse(challenge[0].exercise)[i].done]
+            };
+            setNextDay(array.findIndex(element => element === 0));
+        }
+    }, [challenge, forceUpdate])
 
     const nbrRepetition = () => {
-        {/*      challenge[0].remaining === 0 ? challenge[0].first_repetition + " répétitions par exercice" : challenge[0].repetition*/}
         if (challenge && challenge[0])
             if (challenge[0].remaining === 0)
                 return (
@@ -40,12 +49,16 @@ const DetailChallenge = ({ navigation, route}) => {
                 )
     }
 
-    const calculTotalEstimation = () => {
-        if (challenge && challenge[0])
-            if (challenge[0].remaining === 0)
-                console.log(challenge[0].first_repetition + challenge[0].repetition)
-    }
 
+    const pushNextDay = () => {
+        let newArray = [];
+        for (let i = 0; i < JSON.parse(challenge[0].exercise).length; i++) {
+            newArray = [...newArray, {  done: 0, title : JSON.parse(challenge[0].exercise)[i].title}];
+            database.updateNextDay(challenge[0].name, JSON.stringify(newArray), challenge[0].remaining + 1);
+        };
+        setForceUpdate(Math.random());
+    };
+    // si challenge duration est === a challenge remaning ne plus incrementer
     return (
         <ImageBackground
             source={require('../assets/images/backgroundImage.jpg')} resizeMode="cover"
@@ -62,6 +75,17 @@ const DetailChallenge = ({ navigation, route}) => {
                     }
                     <ButtonCheck challenge={challenge} setForceUpdate={setForceUpdate}/>
                     {nbrRepetition()}
+                    {nextDay === -1 && challenge[0].remaining < challenge[0].duration &&
+                        <TouchableOpacity
+                            onPress={() => {
+                                pushNextDay();
+                            }}
+                        >
+                            <View>
+                                <ButtonValidate>Finir le challenge</ButtonValidate>
+                            </View>
+                        </TouchableOpacity>
+                    }
                 </Container>
             </ScrollView>
         </ImageBackground>

@@ -4,7 +4,6 @@ import {Image, StyleSheet, View} from "react-native";
 import Circle from "../../assets/images/circle.png";
 import EmptyCircle from "../../assets/images/emptyCircle.png";
 import Text from "../../styles/global/Text";
-import _ from "lodash";
 import {database} from "../../service/database";
 
 const ButtonCheck = ({challenge, setForceUpdate}) => {
@@ -30,13 +29,14 @@ const ButtonCheck = ({challenge, setForceUpdate}) => {
                         key={index.toString()}
                         value={index}
                         onPress={(e) => {
-                           checkExercise(item.title)
+                            challenge[0].remaining < challenge[0].duration && checkExercise(item.title);
                         }}
+                        inputColor={item.done ? "#74C69D" : "white"}
                         // activeOpacity={1}
                     >
                         <View style={styles.inline}>
                             <Image style={styles.imageChallenge} source={item.done ? Circle : EmptyCircle}/>
-                            <Text inputColor={item.done ? "red" : "black"}>
+                            <Text inputColor="black">
                                 {item.title}
                             </Text>
                         </View>
