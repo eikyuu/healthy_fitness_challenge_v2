@@ -1,5 +1,3 @@
-// force the state to clear with fast refresh in Expo
-// @refresh reset
 import React, {useEffect, useState} from 'react';
 import {database} from "../service/database";
 

@@ -9,7 +9,6 @@ import ButtonCheck from "../components/detailChallenge/ButtonCheck";
 import {View} from "react-native";
 import ButtonValidate from "../styles/page/configChallenge/ButtonValidate";
 
-
 const DetailChallenge = ({ navigation, route}) => {
     const [forceUpdate, setForceUpdate] = useState(0);
     const {id} = route.params;
@@ -45,20 +44,19 @@ const DetailChallenge = ({ navigation, route}) => {
                     <Text>{challenge[0].first_repetition} répétitions par exercice</Text>
                 )
             else return (
-                <Text>{challenge[0].total_repetition}</Text>
+                <Text>{challenge[0].total_repetition} répétitions par exercice</Text>
                 )
     }
-
 
     const pushNextDay = () => {
         let newArray = [];
         for (let i = 0; i < JSON.parse(challenge[0].exercise).length; i++) {
             newArray = [...newArray, {  done: 0, title : JSON.parse(challenge[0].exercise)[i].title}];
-            database.updateNextDay(challenge[0].name, JSON.stringify(newArray), challenge[0].remaining + 1);
+            database.updateNextDay(challenge[0].name, JSON.stringify(newArray), challenge[0].remaining + 1, challenge[0].total_repetition + challenge[0].repetition) ;
         };
         setForceUpdate(Math.random());
     };
-    // si challenge duration est === a challenge remaning ne plus incrementer
+
     return (
         <ImageBackground
             source={require('../assets/images/backgroundImage.jpg')} resizeMode="cover"
