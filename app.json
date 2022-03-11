@@ -3,9 +3,7 @@
     "name": "healthy_fitness_challenge",
     "slug": "healthy_fitness_challenge",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"]
   },
   "name": "healthy_fitness_challenge"
 }
