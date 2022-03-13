@@ -26,7 +26,7 @@ function AppleStyleSwipeableRow({ name, duration, remaining, navigation, id }) {
 
     return (
       <Animated.View style={{ flex: 1, transform: [{ translateX: trans }] }}>
-        <RectButton style={[styles.rightAction, { backgroundColor: color }]}>
+        <RectButton style={[styles.rightAction, { backgroundColor: color}]}>
           <Text>Editer</Text>
         </RectButton>
       </Animated.View>
@@ -40,7 +40,7 @@ function AppleStyleSwipeableRow({ name, duration, remaining, navigation, id }) {
         flexDirection: 'row',
       }}
     >
-      {renderRightAction('More', '#C8C7CD', 192, progress)}
+      {renderRightAction('More', 'red', 192, progress)}
     </View>
   );
 
@@ -85,24 +85,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'red',
     justifyContent: 'center',
-    height: 'auto',
+    height: 80,
   },
   rectButton: {
     flex: 1,
-    height: 80,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    padding: 10,
     justifyContent: 'space-between',
     flexDirection: 'column',
     backgroundColor: 'white',
-  },
-  actionText: {
-    height: 'auto',
+    height: 80,
   },
   rightAction: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 'auto',
   },
 });

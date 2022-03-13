@@ -12,15 +12,6 @@ const ViewTodo = styled.TouchableOpacity`
   border-bottom-color: gray;
   margin-bottom: 10px;
   padding-left: 5px;
-  View {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    Image {
-      height: 50px;
-      width: 50px;
-    }
-  }
 `;
 
 export default ViewTodo;

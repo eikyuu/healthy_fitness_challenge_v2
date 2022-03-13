@@ -1,6 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabase('healthyfitnesschallenge.db');
+const db = SQLite.openDatabase('healthy.db');
 
 const setupDatabaseAsync = async () => {
   return new Promise((resolve, reject) => {

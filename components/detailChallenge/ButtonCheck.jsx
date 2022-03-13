@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 import ViewTodo from '../../styles/page/myChallenge/ViewTodo';
 import Circle from '../../assets/images/circle.png';
 import EmptyCircle from '../../assets/images/emptyCircle.png';
@@ -46,8 +46,9 @@ function ButtonCheck({ challenge, setForceUpdate }) {
             }}
             inputColor={item.done ? '#74C69D' : 'white'}
           >
-            <View>
+            <View style={styles.inline}>
               <Image
+                  style={styles.imageChallenge}
                 source={item.done ? Circle : EmptyCircle}
               />
               <Text inputColor="black">{item.title}</Text>
@@ -57,5 +58,15 @@ function ButtonCheck({ challenge, setForceUpdate }) {
     </>
   );
 }
-
+const styles = StyleSheet.create({
+  inline : {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  imageChallenge: {
+    height: 50,
+    width: 50,
+  },
+});
 export default ButtonCheck;
