@@ -13,7 +13,7 @@ import { database } from '../service/database';
 function ConfigChallenge({ navigation, route }) {
   const { exercise } = route.params;
   const [finalExercise, setFinalExercise] = useState([]);
-  console.log(finalExercise);
+
   useEffect(() => {
     for (let i = 0; i < exercise.length; i++) {
       if (exercise) {
@@ -30,6 +30,24 @@ function ConfigChallenge({ navigation, route }) {
     repetition: '',
   });
 
+  const submit = () => {
+    for (const property in value) {
+      if (value[property].length <= 0 ) {
+        alert('Veuillez remplir chaque champs');
+        return;
+      }
+    }
+    navigation.navigate('myChallenge');
+    database.insertChallenge(
+      value.name,
+      value.duration,
+      value.firstRepetition,
+      value.repetition,
+      0,
+      JSON.stringify(finalExercise),
+      new Date().toLocaleString(),
+    );
+  }
   return (
     <ImageBackground
       source={require('../assets/images/backgroundImage.jpg')}
@@ -65,16 +83,7 @@ function ConfigChallenge({ navigation, route }) {
           />
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('myChallenge');
-              database.insertChallenge(
-                value.name,
-                value.duration,
-                value.firstRepetition,
-                value.repetition,
-                0,
-                JSON.stringify(finalExercise),
-                new Date().toLocaleString(),
-              );
+              submit();
             }}
           >
             <View>
