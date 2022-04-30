@@ -5,7 +5,6 @@ import useDatabase from '../hooks/useDatabase';
 
 export default function App() {
   const isDBLoadingComplete = useDatabase();
-
   if (isDBLoadingComplete) {
     return (
       <NavigationContainer>
