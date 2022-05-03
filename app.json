@@ -3,7 +3,12 @@
     "name": "healthy_fitness_challenge",
     "slug": "healthy_fitness_challenge",
     "version": "1.0.0",
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": ["**/*"],
+    "splash": {
+      "image": "./assets/loading.png",
+      "backgroundColor": "#74c69d",
+      "resizeMode": "cover"
+    }
   },
   "name": "healthy_fitness_challenge"
 }

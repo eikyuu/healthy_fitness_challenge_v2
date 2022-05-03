@@ -10,6 +10,7 @@ import AppleStyleSwipeableRow from '../components/AppleStyleSwipeableRow';
 
 function MyChallenge({ navigation }) {
   const [challenges, setChallenges] = useState();
+  const [forceUpdate, setForceUpdate] = useState(0);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -19,6 +20,10 @@ function MyChallenge({ navigation }) {
     return unsubscribe;
   }, [navigation]);
   // console.log(challenges[2].id)
+
+  useEffect(() => {
+    database.fetchChallenge(setChallenges);
+  }, [forceUpdate])
 
   function Row({ item }) {
     return (
@@ -34,7 +39,7 @@ function MyChallenge({ navigation }) {
       </RectButton>
     );
   }
-
+  console.log(forceUpdate)
   function SwipeableRow({ name, duration, remaining, id, navigation }) {
     return (
       <AppleStyleSwipeableRow
@@ -44,6 +49,7 @@ function MyChallenge({ navigation }) {
         remaining={remaining}
         navigation={navigation}
         id={id}
+        setForceUpdate={setForceUpdate}
       />
     );
   }

@@ -5,10 +5,11 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Text from '../styles/global/Text';
 import { database } from '../service/database';
 
-function AppleStyleSwipeableRow({ name, duration, remaining, navigation, id }) {
+function AppleStyleSwipeableRow({ name, duration, remaining, navigation, id, setForceUpdate }) {
   const renderLeftActions = (_progress, dragX) => {
     const pressHandler = () => {
       database.deleteChallenge(id);
+      setForceUpdate(Math.random());
     };
 
     return (
@@ -52,7 +53,7 @@ function AppleStyleSwipeableRow({ name, duration, remaining, navigation, id }) {
       leftThreshold={30}
       rightThreshold={40}
       renderLeftActions={renderLeftActions}
-      renderRightActions={renderRightActions}
+      // renderRightActions={renderRightActions}
       onSwipeableOpen={(direction) => {
         console.log(`Opening swipeable from the ${direction}`);
       }}

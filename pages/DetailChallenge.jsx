@@ -49,6 +49,13 @@ function DetailChallenge({ navigation, route }) {
       }
   };
 
+  const challengeDone = () => {
+    if (challenge && challenge[0].remaining === challenge[0].repetition ) {
+      return (
+          <Text>Félicitation vous avez réussi vôtre challenge</Text>
+      )
+    }
+  }
   const pushNextDay = () => {
     let newArray = [];
     for (let i = 0; i < JSON.parse(challenge[0].exercise).length; i++) {
@@ -83,6 +90,7 @@ function DetailChallenge({ navigation, route }) {
           )}
           <ButtonCheck challenge={challenge} setForceUpdate={setForceUpdate} />
           {nbrRepetition()}
+          {challengeDone()}
           {nextDay === -1 && challenge[0].remaining < challenge[0].duration && (
             <TouchableOpacity
               onPress={() => {
