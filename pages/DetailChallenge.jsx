@@ -52,7 +52,9 @@ function DetailChallenge({ navigation, route }) {
   const challengeDone = () => {
     if (challenge && challenge[0].remaining === challenge[0].repetition ) {
       return (
-          <Text>Félicitation vous avez réussi vôtre challenge</Text>
+        <View>
+          <ButtonValidate>Félicitation vous avez terminé vôtre challenge</ButtonValidate>
+        </View>
       )
     }
   }
@@ -98,7 +100,7 @@ function DetailChallenge({ navigation, route }) {
               }}
             >
               <View>
-                <ButtonValidate>Finir le challenge</ButtonValidate>
+                <ButtonValidate>Finir le challenge pour aujourd'hui</ButtonValidate>
               </View>
             </TouchableOpacity>
           )}

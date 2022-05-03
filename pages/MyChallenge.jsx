@@ -19,7 +19,6 @@ function MyChallenge({ navigation }) {
     // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [navigation]);
-  // console.log(challenges[2].id)
 
   useEffect(() => {
     database.fetchChallenge(setChallenges);
@@ -39,7 +38,7 @@ function MyChallenge({ navigation }) {
       </RectButton>
     );
   }
-  console.log(forceUpdate)
+
   function SwipeableRow({ name, duration, remaining, id, navigation }) {
     return (
       <AppleStyleSwipeableRow

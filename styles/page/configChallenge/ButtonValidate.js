@@ -3,7 +3,7 @@ import Text from '../../global/Text';
 
 const ButtonValidate = styled(Text)`
   background-color: white;
-  height: 40px;
+  height: auto;
   width: 350px;
   border-radius: 10px;
   border-width: 2px;

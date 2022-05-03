@@ -14,7 +14,7 @@ function AppleStyleSwipeableRow({ name, duration, remaining, navigation, id, set
 
     return (
       <RectButton style={styles.leftAction} onPress={pressHandler}>
-        <Animated.Text>Delete</Animated.Text>
+        <Animated.Text style={styles.delete}>Supprimer</Animated.Text>
       </RectButton>
     );
   };
@@ -87,6 +87,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     justifyContent: 'center',
     height: 80,
+  },
+  delete: {
+    color: "white",
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center"
   },
   rectButton: {
     flex: 1,
