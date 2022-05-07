@@ -53,7 +53,7 @@ function DetailChallenge({ navigation, route }) {
     if (challenge && challenge[0].remaining === challenge[0].repetition ) {
       return (
         <View>
-          <ButtonValidate>Félicitation vous avez terminé vôtre challenge</ButtonValidate>
+          <ButtonValidate>Félicitations pour avoir terminé votre défi</ButtonValidate>
         </View>
       )
     }
@@ -66,7 +66,7 @@ function DetailChallenge({ navigation, route }) {
         { done: 0, title: JSON.parse(challenge[0].exercise)[i].title },
       ];
       database.updateNextDay(
-        challenge[0].name,
+        challenge[0].id,
         JSON.stringify(newArray),
         challenge[0].remaining + 1,
         challenge[0].total_repetition + challenge[0].repetition,

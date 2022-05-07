@@ -67,7 +67,7 @@ function ConfigChallenge({ navigation, route }) {
             value={value.duration}
             keyboardType="numeric"
           />
-          <Text>Premiere repetition</Text>
+          <Text>Première répétition</Text>
           <ButtonConfig
             onChangeText={(text) =>
               setValue({ ...value, firstRepetition: text })
@@ -75,7 +75,7 @@ function ConfigChallenge({ navigation, route }) {
             value={value.firstRepetition}
             keyboardType="numeric"
           />
-          <Text>Repetition en + par jours</Text>
+          <Text>Répétition en + par jour</Text>
           <ButtonConfig
             onChangeText={(text) => setValue({ ...value, repetition: text })}
             value={value.repetition}
@@ -94,8 +94,8 @@ function ConfigChallenge({ navigation, route }) {
             <View>
               <Text>Challenge {value.name}</Text>
               <Text>Durée {value.duration} JOURS</Text>
-              <Text>Aujourd'hui {value.firstRepetition} répetitions</Text>
-              <Text>+{value.repetition} répetitions par jours</Text>
+              <Text>Aujourd'hui {value.firstRepetition} répétitions</Text>
+              <Text>+{value.repetition} répétitions par jours</Text>
             </View>
           </ButtonRecap>
         </Container>

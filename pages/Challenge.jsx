@@ -28,7 +28,7 @@ function Challenge({ navigation }) {
       <ScrollView>
         <Container>
           <TitleChallenge>
-            Sélectionner un ou plusieurs exercices
+            Sélectionner au moins un exercice
           </TitleChallenge>
 
           {media.data.map((index) => (

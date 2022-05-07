@@ -12,7 +12,7 @@ function Home({ navigation }) {
     >
       <Container>
         <Button onPress={() => navigation.navigate('createChallenge')}>
-          <Text>Crée un challenge</Text>
+          <Text>Créer un challenge</Text>
         </Button>
         <Button onPress={() => navigation.navigate('myChallenge')}>
           <Text>Mes challenges</Text>

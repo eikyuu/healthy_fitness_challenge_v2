@@ -56,11 +56,11 @@ const insertChallenge = (
   );
 };
 
-const updateExo = (name, exercise) => {
+const updateExo = (id, exercise) => {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        `UPDATE challenge set exercise = '${exercise}' WHERE name = '${name}'`,
+        `UPDATE challenge set exercise = '${exercise}' WHERE id = '${id}'`,
       );
     },
     (t, error) => {
@@ -73,11 +73,11 @@ const updateExo = (name, exercise) => {
   );
 };
 
-const updateNextDay = (name, exercise, remaining, repetition) => {
+const updateNextDay = (id, exercise, remaining, repetition) => {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        `UPDATE challenge set exercise = '${exercise}', remaining = '${remaining}', total_repetition = '${repetition}' WHERE name = '${name}'`,
+        `UPDATE challenge set exercise = '${exercise}', remaining = '${remaining}', total_repetition = '${repetition}' WHERE id = '${id}'`,
       );
     },
     (t, error) => {
