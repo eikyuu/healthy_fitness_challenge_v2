@@ -21,12 +21,12 @@ function ButtonCheck({ challenge, setForceUpdate }) {
       if (exo[0].done !== 0)
         database.updateExo(
           challenge[0].id,
-          JSON.stringify([...anotherExo, { done: 0, title: exo[0].title }]),
+          JSON.stringify([...anotherExo, { done: 0, title: exo[0].title, img: exo[0].img }]),
         );
       else
         database.updateExo(
           challenge[0].id,
-          JSON.stringify([...anotherExo, { done: 1, title: exo[0].title }]),
+          JSON.stringify([...anotherExo, { done: 1, title: exo[0].title, img: exo[0].img }]),
         );
     } catch (e) {
       throw new Error(e);
@@ -34,15 +34,8 @@ function ButtonCheck({ challenge, setForceUpdate }) {
       setForceUpdate(Math.random());
     }
   };
-  const [media, setMedia] = useState(mediaImage);
-  // aller chercher les media et trier par title
-  console.log(mediaImage.data[0].img)
 
-  const renderImageExercise = (title) => {
-    const filter = _.filter(mediaImage.data,{ 'title': title});
-    return filter[0]['img'];
-  }
-
+  console.log(challenge)
   return (
     <>
       {challenge &&
@@ -54,17 +47,16 @@ function ButtonCheck({ challenge, setForceUpdate }) {
               challenge[0].remaining < challenge[0].duration &&
               handlerDoneExercise(item.title);
             }}
-            inputColor={item.done ? '#74C69D' : 'white'}
+            inputColor={item.done ? '#74C69D' : 'black'}
           >
             <View style={styles.inline}>
               <Image
                   style={styles.imageCircle}
                   source={item.done ? Circle : EmptyCircle}
               />
-              {/*<Text inputColor="black">{item.title}</Text>*/}
               <Image
                 style={styles.imageChallenge}
-                source={renderImageExercise(item.title)}
+                source={{uri :item.img}}
               />
             </View>
 
@@ -75,17 +67,19 @@ function ButtonCheck({ challenge, setForceUpdate }) {
 }
 const styles = StyleSheet.create({
   inline : {
+    padding: 5,
     display: "flex",
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "space-between"
   },
   imageCircle: {
     height: 50,
     width: 50,
+
   },
   imageChallenge: {
-    margin: 5,
-    width: 150,
+    width: 100,
     height: 100,
     resizeMode: 'contain'
   }

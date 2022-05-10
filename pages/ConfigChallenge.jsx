@@ -13,11 +13,10 @@ import { database } from '../service/database';
 function ConfigChallenge({ navigation, route }) {
   const { exercise } = route.params;
   const [finalExercise, setFinalExercise] = useState([]);
-
   useEffect(() => {
     for (let i = 0; i < exercise.length; i++) {
       if (exercise) {
-        const source = { title: exercise[i].title, done: 0 };
+        const source = { title: exercise[i].name, done: 0, img: exercise[i].gifUrl };
         setFinalExercise((prevState) => [...prevState, source]);
       }
     }

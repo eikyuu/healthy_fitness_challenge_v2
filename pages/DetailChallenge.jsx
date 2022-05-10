@@ -22,7 +22,6 @@ function DetailChallenge({ navigation, route }) {
     // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [navigation, forceUpdate, id]);
-
   useEffect(() => {
     database.fetchChallengeById(setChallenge, id);
   }, [forceUpdate]);
@@ -63,7 +62,7 @@ function DetailChallenge({ navigation, route }) {
     for (let i = 0; i < JSON.parse(challenge[0].exercise).length; i++) {
       newArray = [
         ...newArray,
-        { done: 0, title: JSON.parse(challenge[0].exercise)[i].title },
+        { done: 0, title: JSON.parse(challenge[0].exercise)[i].title, img: JSON.parse(challenge[0].exercise)[i].img },
       ];
       database.updateNextDay(
         challenge[0].id,
@@ -74,7 +73,6 @@ function DetailChallenge({ navigation, route }) {
     }
     setForceUpdate(Math.random());
   };
-
   return (
     <ImageBackground
       source={require('../assets/images/backgroundImage.jpg')}

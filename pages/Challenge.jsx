@@ -1,24 +1,46 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import _ from 'lodash';
 import ImageBackground from '../styles/global/ImageBackground';
 import Container from '../styles/global/Container';
 import Text from '../styles/global/Text';
 import TitleChallenge from '../styles/page/challenge/TitleChallenge';
-import { mediaImage } from '../assets/images';
+import {getAllExercises} from "../service/exerciseDB";
 
 function Challenge({ navigation }) {
-  const [media, setMedia] = useState(mediaImage);
-  const length = media.data.findIndex((element) => element.completed === true);
+  const [media, setMedia] = useState(undefined);
+  const [mediaTest, setMediaTest] = useState([]);
 
   const handleStyle = (index) => {
-    const elementsIndex = media.data.findIndex(
+    const elementsIndex = mediaTest.findIndex(
       (element) => element.id === index.id,
     );
-    return media.data[elementsIndex].completed
+    return mediaTest[elementsIndex]
       ? styles.buttonChallengeCheck
       : styles.buttonChallenge;
   };
+
+  const fetchAllExercises = async () => {
+    let data;
+    try {
+     data = await getAllExercises();
+     setMedia(data);
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  useEffect(() => {
+    fetchAllExercises();
+  }, [])
+
+  const x = (newArray, id, elementsIndex) => {
+    if (_.find(newArray, {'id': id})) {
+      setMediaTest(newArray.filter(item => item.id !== id))
+    } else {
+      newArray.push(media.data[elementsIndex])
+      setMediaTest(newArray);
+    }
+  }
 
   return (
     <ImageBackground
@@ -31,7 +53,7 @@ function Challenge({ navigation }) {
             Sélectionner au moins un exercice
           </TitleChallenge>
 
-          {media.data.map((index) => (
+          {media !== undefined && media.data.slice(0,30).map((index) => (
             <TouchableOpacity
               key={index.id}
               activeOpacity={1}
@@ -40,24 +62,19 @@ function Challenge({ navigation }) {
                 const elementsIndex = media.data.findIndex(
                   (element) => element.id === index.id,
                 );
-                const newArray = [...media.data];
-                newArray[elementsIndex] = {
-                  ...newArray[elementsIndex],
-                  completed: !newArray[elementsIndex].completed,
-                };
-                setMedia({ data: newArray });
+                const newArray = [...mediaTest];
+               x(newArray, index.id, elementsIndex);
               }}
             >
-              <Image style={styles.imageChallenge} source={index.img} />
+              <Image style={styles.imageChallenge} source={{uri :index.gifUrl}} />
             </TouchableOpacity>
           ))}
-          {length >= 0 ? (
+
+          {mediaTest.length > 0 ? (
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('configChallenge', {
-                  exercise: _.filter(media.data, function (o) {
-                    return o.completed;
-                  }),
+                  exercise: mediaTest
                 })
               }
             >
@@ -84,11 +101,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   buttonChallengeCheck: {
-    backgroundColor: '#D8F3DC',
+    backgroundColor: '#ffffff',
     height: 120,
     width: 350,
     borderRadius: 10,
-    borderWidth: 2,
+    borderWidth: 5,
     borderColor: '#74C69D',
     alignItems: 'center',
     justifyContent: 'center',
@@ -97,7 +114,7 @@ const styles = StyleSheet.create({
   },
   imageChallenge: {
     height: 100,
-    width: 150,
+    width: 100,
     resizeMode: 'contain',
   },
   buttonValidate: {
