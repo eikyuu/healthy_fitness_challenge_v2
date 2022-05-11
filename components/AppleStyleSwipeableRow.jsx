@@ -72,7 +72,7 @@ function AppleStyleSwipeableRow({ name, duration, remaining, navigation, id, set
       >
         <Text inputColor="black">{name}</Text>
         <Text inputColor="gray">
-          Jours {remaining}/{duration}
+          Jours {remaining}/{duration} { duration === remaining ? "challenge terminé" : ""}
         </Text>
       </TouchableOpacity>
     </Swipeable>
