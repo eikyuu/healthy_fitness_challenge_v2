@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import {View, Image, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import _ from 'lodash';
 import ImageBackground from '../styles/global/ImageBackground';
 import Container from '../styles/global/Container';
@@ -7,9 +7,10 @@ import Text from '../styles/global/Text';
 import TitleChallenge from '../styles/page/challenge/TitleChallenge';
 import {getAllExercises} from "../service/exerciseDB";
 
-function Challenge({ navigation }) {
+function Challenge({ navigation, toto }) {
   const [media, setMedia] = useState(undefined);
   const [mediaTest, setMediaTest] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleStyle = (index) => {
     const elementsIndex = mediaTest.findIndex(
@@ -20,16 +21,19 @@ function Challenge({ navigation }) {
       : styles.buttonChallenge;
   };
 
-  const fetchAllExercises = async () => {
-    let data;
-    try {
-     data = await getAllExercises();
-     setMedia(data);
-    } catch (e) {
-      console.log(e)
-    }
-  }
   useEffect(() => {
+    async function fetchAllExercises() {
+      let data;
+      try {
+        setLoading(true);
+        data = await getAllExercises();
+        setMedia(data);
+      } catch (e) {
+        console.log(e)
+      } finally {
+        setLoading(false);
+      }
+    }
     fetchAllExercises();
   }, [])
 
@@ -47,28 +51,40 @@ function Challenge({ navigation }) {
       source={require('../assets/images/backgroundImage.jpg')}
       resizeMode="cover"
     >
-      <ScrollView>
-        <Container>
-          <TitleChallenge>
-            Sélectionner au moins un exercice
-          </TitleChallenge>
+          {
+            media &&
+              <ScrollView>
+                <Container>
+                  <TitleChallenge>
+                    Sélectionner au moins un exercice
+                  </TitleChallenge>
+                  {media !== undefined && media.data.slice(0,30).map((index) => (
+                      <TouchableOpacity
+                          key={index.id}
+                          activeOpacity={1}
+                          style={handleStyle(index)}
+                          onPress={() => {
+                            const elementsIndex = media.data.findIndex(
+                                (element) => element.id === index.id,
+                            );
+                            const newArray = [...mediaTest];
+                            x(newArray, index.id, elementsIndex);
+                          }}
+                      >
+                        <Image style={styles.imageChallenge} source={{uri :index.gifUrl}} />
+                      </TouchableOpacity>
+                  ))}
 
-          {media !== undefined && media.data.slice(0,30).map((index) => (
-            <TouchableOpacity
-              key={index.id}
-              activeOpacity={1}
-              style={handleStyle(index)}
-              onPress={() => {
-                const elementsIndex = media.data.findIndex(
-                  (element) => element.id === index.id,
-                );
-                const newArray = [...mediaTest];
-               x(newArray, index.id, elementsIndex);
-              }}
-            >
-              <Image style={styles.imageChallenge} source={{uri :index.gifUrl}} />
-            </TouchableOpacity>
-          ))}
+                </Container>
+
+              </ScrollView>
+          }
+
+
+          {loading ?
+              <ActivityIndicator size="large" color="#00ff00" />
+              : null
+          }
 
           {mediaTest.length > 0 ? (
             <TouchableOpacity
@@ -81,8 +97,6 @@ function Challenge({ navigation }) {
               <Text style={styles.buttonValidate}>Suivant</Text>
             </TouchableOpacity>
           ) : null}
-        </Container>
-      </ScrollView>
     </ImageBackground>
   );
 }
