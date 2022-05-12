@@ -168,6 +168,6 @@ export const mediaImage = {
       title: 'X-hops',
       img: xHop,
       completed: false,
-    }
+    },
   ],
 };

@@ -16,7 +16,7 @@ function BottomNav() {
       initialRouteName="Accueil"
       activeColor="#FFFFFF"
       inactiveColor="#86ccac"
-      barStyle={{ backgroundColor: '#52B788' }}
+      barStyle={{ backgroundColor: '#52B788'}}
       screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
@@ -30,7 +30,7 @@ function BottomNav() {
         {() => (
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="home" component={Home} />
-            <Stack.Screen name="createChallenge" component={Challenge}/>
+            <Stack.Screen name="createChallenge" component={Challenge} />
             <Stack.Screen name="configChallenge" component={ConfigChallenge} />
             <Stack.Screen name="detailChallenge" component={DetailChallenge} />
           </Stack.Navigator>

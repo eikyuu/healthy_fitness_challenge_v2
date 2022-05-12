@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
-import {NavigationContainer} from "@react-navigation/native";
-import BottomNav from "../components/navigation/BottomNav";
-import useDatabase from "../hooks/useDatabase";
+import { NavigationContainer } from '@react-navigation/native';
+import BottomNav from '../components/navigation/BottomNav';
+import useDatabase from '../hooks/useDatabase';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -31,9 +32,13 @@ export default function App() {
   const isDBLoadingComplete = useDatabase();
   if (isDBLoadingComplete && appIsReady) {
     return (
-        <NavigationContainer>
-          <BottomNav />
-        </NavigationContainer>
+        <>
+          <StatusBar style="dark" />
+          <NavigationContainer>
+            <BottomNav />
+          </NavigationContainer>
+        </>
+
     );
   }
   return null;

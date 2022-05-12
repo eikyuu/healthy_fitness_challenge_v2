@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Image, View, StyleSheet } from 'react-native';
 import ViewTodo from '../../styles/page/myChallenge/ViewTodo';
 import Circle from '../../assets/images/circle.png';
 import EmptyCircle from '../../assets/images/emptyCircle.png';
 import Text from '../../styles/global/Text';
 import { database } from '../../service/database';
-import {mediaImage} from "../../assets/images";
-import _ from "lodash";
+import { mediaImage } from '../../assets/images';
+import _ from 'lodash';
 
 function ButtonCheck({ challenge, setForceUpdate }) {
   // update db
@@ -21,12 +21,18 @@ function ButtonCheck({ challenge, setForceUpdate }) {
       if (exo[0].done !== 0)
         database.updateExo(
           challenge[0].id,
-          JSON.stringify([...anotherExo, { done: 0, title: exo[0].title, img: exo[0].img }]),
+          JSON.stringify([
+            ...anotherExo,
+            { done: 0, title: exo[0].title, img: exo[0].img },
+          ]),
         );
       else
         database.updateExo(
           challenge[0].id,
-          JSON.stringify([...anotherExo, { done: 1, title: exo[0].title, img: exo[0].img }]),
+          JSON.stringify([
+            ...anotherExo,
+            { done: 1, title: exo[0].title, img: exo[0].img },
+          ]),
         );
     } catch (e) {
       throw new Error(e);
@@ -35,7 +41,6 @@ function ButtonCheck({ challenge, setForceUpdate }) {
     }
   };
 
-  console.log(challenge)
   return (
     <>
       {challenge &&
@@ -45,43 +50,38 @@ function ButtonCheck({ challenge, setForceUpdate }) {
             value={index}
             onPress={(e) => {
               challenge[0].remaining < challenge[0].duration &&
-              handlerDoneExercise(item.title);
+                handlerDoneExercise(item.title);
             }}
             inputColor={item.done ? '#74C69D' : 'black'}
           >
             <View style={styles.inline}>
               <Image
-                  style={styles.imageCircle}
-                  source={item.done ? Circle : EmptyCircle}
+                style={styles.imageCircle}
+                source={item.done ? Circle : EmptyCircle}
               />
-              <Image
-                style={styles.imageChallenge}
-                source={{uri :item.img}}
-              />
+              <Image style={styles.imageChallenge} source={{ uri: item.img }} />
             </View>
-
           </ViewTodo>
         ))}
     </>
   );
 }
 const styles = StyleSheet.create({
-  inline : {
+  inline: {
     padding: 5,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between"
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   imageCircle: {
     height: 50,
     width: 50,
-
   },
   imageChallenge: {
     width: 100,
     height: 100,
-    resizeMode: 'contain'
-  }
+    resizeMode: 'contain',
+  },
 });
 export default ButtonCheck;

@@ -1,19 +1,19 @@
 import styled from 'styled-components/native';
-import Text from '../../global/Text';
+import { View } from 'react-native';
 
-const ButtonValidate = styled(Text)`
+const ButtonValidate = styled(View)`
   background-color: white;
-  height: auto;
+  height: 50px;
   width: 350px;
   border-radius: 10px;
   border-width: 2px;
   border-color: #74c69d;
-  align-items: center;
+  margin: 20px 0 20px 0;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  flex-direction: row;
-  margin-top: 20px;
-  text-align: center;
-  margin-bottom: 25px;
+  padding: 10px;
+  align-items: center;
 `;
 
 export default ButtonValidate;

@@ -138,12 +138,6 @@ const deleteChallenge = (id) => {
       'delete from challenge WHERE id = ? ',
       [id],
       (txObj, resultSet) => {
-        // if (resultSet.rowsAffected > 0) {
-        //   const newList = deleteChallenge.filter((data) => {
-        //     if (data.id === id) return false;
-        //     return true;
-        //   });
-        //   setDeleteChallenge(newList);
         console.log('correctement delete');
       },
     );

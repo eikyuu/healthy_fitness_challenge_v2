@@ -49,20 +49,26 @@ function DetailChallenge({ navigation, route }) {
   };
 
   const challengeDone = () => {
-    if (challenge && challenge[0].remaining === challenge[0].repetition ) {
+    if (challenge && challenge[0].remaining === challenge[0].repetition) {
       return (
         <View>
-          <ButtonValidate>Félicitations pour avoir terminé votre défi</ButtonValidate>
+          <ButtonValidate>
+            <Text>Félicitations pour avoir terminé votre défi</Text>
+          </ButtonValidate>
         </View>
-      )
+      );
     }
-  }
+  };
   const pushNextDay = () => {
     let newArray = [];
     for (let i = 0; i < JSON.parse(challenge[0].exercise).length; i++) {
       newArray = [
         ...newArray,
-        { done: 0, title: JSON.parse(challenge[0].exercise)[i].title, img: JSON.parse(challenge[0].exercise)[i].img },
+        {
+          done: 0,
+          title: JSON.parse(challenge[0].exercise)[i].title,
+          img: JSON.parse(challenge[0].exercise)[i].img,
+        },
       ];
       database.updateNextDay(
         challenge[0].id,
@@ -83,7 +89,7 @@ function DetailChallenge({ navigation, route }) {
           {challenge && (
             <>
               <TitleChallenge>{challenge[0].name}</TitleChallenge>
-              <Text inputColor="gray">
+              <Text style={{marginBottom: 10}} inputColor="gray">
                 Jours {challenge[0].remaining}/{challenge[0].duration}
               </Text>
             </>
@@ -97,9 +103,9 @@ function DetailChallenge({ navigation, route }) {
                 pushNextDay();
               }}
             >
-              <View>
-                <ButtonValidate>Finir le challenge pour aujourd'hui</ButtonValidate>
-              </View>
+              <ButtonValidate>
+                <Text>Finir le challenge pour aujourd'hui</Text>
+              </ButtonValidate>
             </TouchableOpacity>
           )}
         </Container>

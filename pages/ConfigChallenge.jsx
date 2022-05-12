@@ -16,7 +16,11 @@ function ConfigChallenge({ navigation, route }) {
   useEffect(() => {
     for (let i = 0; i < exercise.length; i++) {
       if (exercise) {
-        const source = { title: exercise[i].name, done: 0, img: exercise[i].gifUrl };
+        const source = {
+          title: exercise[i].name,
+          done: 0,
+          img: exercise[i].gifUrl,
+        };
         setFinalExercise((prevState) => [...prevState, source]);
       }
     }
@@ -31,7 +35,7 @@ function ConfigChallenge({ navigation, route }) {
 
   const submit = () => {
     for (const property in value) {
-      if (value[property].length <= 0 ) {
+      if (value[property].length <= 0) {
         alert('Veuillez remplir chaque champs');
         return;
       }
@@ -46,7 +50,7 @@ function ConfigChallenge({ navigation, route }) {
       JSON.stringify(finalExercise),
       new Date().toLocaleString(),
     );
-  }
+  };
   return (
     <ImageBackground
       source={require('../assets/images/backgroundImage.jpg')}
@@ -85,9 +89,9 @@ function ConfigChallenge({ navigation, route }) {
               submit();
             }}
           >
-            <View>
-              <ButtonValidate>Suivant</ButtonValidate>
-            </View>
+            <ButtonValidate>
+              <Text>Suivant</Text>
+            </ButtonValidate>
           </TouchableOpacity>
           <ButtonRecap>
             <View>

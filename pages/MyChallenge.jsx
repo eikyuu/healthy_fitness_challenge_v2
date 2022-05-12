@@ -22,27 +22,12 @@ function MyChallenge({ navigation }) {
 
   useEffect(() => {
     database.fetchChallenge(setChallenges);
-  }, [forceUpdate])
-
-  function Row({ item }) {
-    return (
-      <RectButton
-        style={styles.rectButton}
-        onPress={() => Alert.alert(item.from)}
-      >
-        <Text style={styles.fromText}>{item.from}</Text>
-        <Text numberOfLines={2} style={styles.messageText}>
-          toto
-        </Text>
-        <Text style={styles.dateText}>{item.when} ❭</Text>
-      </RectButton>
-    );
-  }
+  }, [forceUpdate]);
 
   function SwipeableRow({ name, duration, remaining, id, navigation }) {
     return (
       <AppleStyleSwipeableRow
-        style={styles.rectButton}
+
         name={name}
         duration={duration}
         remaining={remaining}
@@ -91,10 +76,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: 'space-between',
     flexDirection: 'column',
-    backgroundColor: 'red',
-  },
-  separator: {},
-  fromText: {},
-  messageText: {},
-  dateText: {},
+    backgroundColor: 'red'
+  }
 });
