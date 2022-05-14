@@ -8,11 +8,18 @@ import TitleChallenge from '../styles/page/challenge/TitleChallenge';
 import ButtonRecap from '../styles/page/configChallenge/ButtonRecap';
 import ButtonValidate from '../styles/page/configChallenge/ButtonValidate';
 import ButtonConfig from '../styles/page/configChallenge/ButtonConfig';
-import { database } from '../service/database';
+import { database } from '../_service/database';
 
 function ConfigChallenge({ navigation, route }) {
   const { exercise } = route.params;
   const [finalExercise, setFinalExercise] = useState([]);
+  const [value, setValue] = useState({
+    name: '',
+    duration: '',
+    firstRepetition: '',
+    repetition: '',
+  });
+
   useEffect(() => {
     for (let i = 0; i < exercise.length; i++) {
       if (exercise) {
@@ -26,12 +33,6 @@ function ConfigChallenge({ navigation, route }) {
     }
   }, []);
 
-  const [value, setValue] = useState({
-    name: '',
-    duration: '',
-    firstRepetition: '',
-    repetition: '',
-  });
 
   const submit = () => {
     for (const property in value) {
@@ -51,6 +52,7 @@ function ConfigChallenge({ navigation, route }) {
       new Date().toLocaleString(),
     );
   };
+
   return (
     <ImageBackground
       source={require('../assets/images/backgroundImage.jpg')}

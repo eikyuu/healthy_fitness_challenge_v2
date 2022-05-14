@@ -4,11 +4,13 @@ import ViewTodo from '../../styles/page/myChallenge/ViewTodo';
 import Circle from '../../assets/images/circle.png';
 import EmptyCircle from '../../assets/images/emptyCircle.png';
 import Text from '../../styles/global/Text';
-import { database } from '../../service/database';
+import { database } from '../../_service/database';
 import { mediaImage } from '../../assets/images';
 import _ from 'lodash';
+import useErrorHandler from "../../_hooks/useHandleError";
 
 function ButtonCheck({ challenge, setForceUpdate }) {
+  const {errorHandler} = useErrorHandler();
   // update db
   const handlerDoneExercise = (title) => {
     const exo = JSON.parse(challenge[0].exercise).filter(
@@ -35,14 +37,14 @@ function ButtonCheck({ challenge, setForceUpdate }) {
           ]),
         );
     } catch (e) {
-      throw new Error(e);
+      errorHandler(e);
     } finally {
       setForceUpdate(Math.random());
     }
   };
 
   return (
-    <>
+    <React.Fragment>
       {challenge &&
         JSON.parse(challenge[0].exercise).map((item, index) => (
           <ViewTodo
@@ -63,7 +65,7 @@ function ButtonCheck({ challenge, setForceUpdate }) {
             </View>
           </ViewTodo>
         ))}
-    </>
+    </React.Fragment>
   );
 }
 const styles = StyleSheet.create({

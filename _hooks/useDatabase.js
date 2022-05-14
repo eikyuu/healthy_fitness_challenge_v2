@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { database } from '../service/database';
+import { database } from '../_service/database';
 
 export default function useDatabase() {
   const [isDBLoadingComplete, setDBLoadingComplete] = useState(false);

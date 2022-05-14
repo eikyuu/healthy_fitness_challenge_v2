@@ -12,31 +12,37 @@ import ImageBackground from '../styles/global/ImageBackground';
 import Container from '../styles/global/Container';
 import Text from '../styles/global/Text';
 import TitleChallenge from '../styles/page/challenge/TitleChallenge';
-import { getAllExercises } from '../service/exerciseDB';
+import { getAllExercises } from '../_service/exerciseDB';
+import useErrorHandler from "../_hooks/useHandleError";
 
 function Challenge({ navigation, toto }) {
   const [media, setMedia] = useState(undefined);
-  const [mediaTest, setMediaTest] = useState([]);
+  const [finalMedia, setFinalMedia] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { errorHandler } = useErrorHandler();
 
-  const handleStyle = (index) => {
-    const elementsIndex = mediaTest.findIndex(
-      (element) => element.id === index.id,
+  const findElementIndex = (index, array) => {
+    const elementIndex = array.findIndex(
+        (element) => element.id === index.id,
     );
-    return mediaTest[elementsIndex]
+    return elementIndex;
+  }
+
+  const handleStyle = (elementIndex) => {
+    return finalMedia[elementIndex]
       ? styles.buttonChallengeCheck
       : styles.buttonChallenge;
   };
 
   useEffect(() => {
-    async function fetchAllExercises() {
+    const fetchAllExercises = async () => {
       let data;
       try {
         setLoading(true);
         data = await getAllExercises();
         setMedia(data);
       } catch (e) {
-        console.log(e);
+        errorHandler(e);
       } finally {
         setLoading(false);
       }
@@ -44,12 +50,12 @@ function Challenge({ navigation, toto }) {
     fetchAllExercises();
   }, []);
 
-  const x = (newArray, id, elementsIndex) => {
+  const newFinalMedia = (newArray, id, elementsIndex) => {
     if (_.find(newArray, { id: id })) {
-      setMediaTest(newArray.filter((item) => item.id !== id));
+      setFinalMedia(newArray.filter((item) => item.id !== id));
     } else {
       newArray.push(media.data[elementsIndex]);
-      setMediaTest(newArray);
+      setFinalMedia(newArray);
     }
   };
 
@@ -63,35 +69,30 @@ function Challenge({ navigation, toto }) {
           <Container>
             <TitleChallenge>Sélectionner au moins un exercice</TitleChallenge>
             <View style={styles.containerChallenges}>
-            {media !== undefined &&
-              media.data.slice(0, 30).map((index) => (
-                    <TouchableOpacity
-                        key={index.id}
-                        activeOpacity={1}
-                        style={handleStyle(index)}
-                        onPress={() => {
-                          const elementsIndex = media.data.findIndex(
-                              (element) => element.id === index.id,
-                          );
-                          const newArray = [...mediaTest];
-                          x(newArray, index.id, elementsIndex);
-                        }}
-                    >
-                      <Image
-                          style={styles.imageChallenge}
-                          source={{ uri: index.gifUrl }}
-                      />
-                    </TouchableOpacity>
-
-              ))}
+              {media !== undefined &&
+                media.data.slice(0, 30).map((index) => (
+                  <TouchableOpacity
+                    key={index.id}
+                    activeOpacity={1}
+                    style={handleStyle(findElementIndex(index, finalMedia))}
+                    onPress={() => {
+                      const newArray = [...finalMedia];
+                      newFinalMedia(newArray, index.id, findElementIndex(index, media.data));
+                    }}
+                  >
+                    <Image
+                      style={styles.imageChallenge}
+                      source={{ uri: index.gifUrl }}
+                    />
+                  </TouchableOpacity>
+                ))}
             </View>
-
-            {mediaTest.length > 0 ? (
+            {finalMedia.length > 0 ? (
               <TouchableOpacity
                 style={styles.buttonValidate}
                 onPress={() =>
                   navigation.navigate('configChallenge', {
-                    exercise: mediaTest,
+                    exercise: finalMedia,
                   })
                 }
               >
@@ -101,7 +102,6 @@ function Challenge({ navigation, toto }) {
           </Container>
         </ScrollView>
       )}
-
       {loading ? <ActivityIndicator size="large" color="#40916C" /> : null}
     </ImageBackground>
   );
@@ -109,10 +109,10 @@ function Challenge({ navigation, toto }) {
 
 const styles = StyleSheet.create({
   containerChallenges: {
-    display:"flex",
-    flexDirection:"row",
-    flexWrap: "wrap",
-    justifyContent: "center"
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
   buttonChallenge: {
     backgroundColor: '#FFFFFF',

@@ -3,7 +3,7 @@ import { Animated, StyleSheet, View } from 'react-native';
 import { RectButton, TouchableOpacity } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Text from '../styles/global/Text';
-import { database } from '../service/database';
+import { database } from '../_service/database';
 
 function AppleStyleSwipeableRow({
   name,
@@ -18,7 +18,6 @@ function AppleStyleSwipeableRow({
       database.deleteChallenge(id);
       setForceUpdate(Math.random());
     };
-
     return (
       <RectButton style={styles.leftAction} onPress={pressHandler}>
         <Animated.Text style={styles.delete}>Supprimer</Animated.Text>
@@ -31,7 +30,6 @@ function AppleStyleSwipeableRow({
       inputRange: [0, 1],
       outputRange: [x, 0],
     });
-
     return (
       <Animated.View style={{ flex: 1, transform: [{ translateX: trans }] }}>
         <RectButton style={[styles.rightAction, { backgroundColor: color }]}>
@@ -79,18 +77,13 @@ function AppleStyleSwipeableRow({
       >
         <Text inputColor="black">{name}</Text>
 
-
-        {duration === remaining ?
-            <Text inputColor="#40916C">
-              Challenge terminé
-            </Text>
-            :
-            <Text inputColor="gray">
-              Jours {remaining}/{duration}{' '}
-            </Text>
-        }
-
-
+        {duration === remaining ? (
+          <Text inputColor="#40916C">Challenge terminé</Text>
+        ) : (
+          <Text inputColor="gray">
+            Jours {remaining}/{duration}{' '}
+          </Text>
+        )}
       </TouchableOpacity>
     </Swipeable>
   );

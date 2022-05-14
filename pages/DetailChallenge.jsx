@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { View } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {View} from 'react-native';
 import ImageBackground from '../styles/global/ImageBackground';
-import { database } from '../service/database';
+import {database} from '../_service/database';
 import Text from '../styles/global/Text';
 import Container from '../styles/global/Container';
 import TitleChallenge from '../styles/page/challenge/TitleChallenge';
@@ -10,18 +10,18 @@ import ButtonCheck from '../components/detailChallenge/ButtonCheck';
 import ButtonValidate from '../styles/page/configChallenge/ButtonValidate';
 
 function DetailChallenge({ navigation, route }) {
-  const [forceUpdate, setForceUpdate] = useState(0);
   const { id } = route.params;
+  const [forceUpdate, setForceUpdate] = useState(0);
   const [challenge, setChallenge] = useState();
   const [nextDay, setNextDay] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return navigation.addListener('focus', () => {
       database.fetchChallengeById(setChallenge, id);
     });
-    // Return the function to unsubscribe from the event so it gets removed on unmount
-    return unsubscribe;
   }, [navigation, forceUpdate, id]);
+
   useEffect(() => {
     database.fetchChallengeById(setChallenge, id);
   }, [forceUpdate]);
@@ -59,6 +59,7 @@ function DetailChallenge({ navigation, route }) {
       );
     }
   };
+
   const pushNextDay = () => {
     let newArray = [];
     for (let i = 0; i < JSON.parse(challenge[0].exercise).length; i++) {
@@ -79,6 +80,7 @@ function DetailChallenge({ navigation, route }) {
     }
     setForceUpdate(Math.random());
   };
+
   return (
     <ImageBackground
       source={require('../assets/images/backgroundImage.jpg')}
@@ -89,7 +91,7 @@ function DetailChallenge({ navigation, route }) {
           {challenge && (
             <>
               <TitleChallenge>{challenge[0].name}</TitleChallenge>
-              <Text style={{marginBottom: 10}} inputColor="gray">
+              <Text style={{ marginBottom: 10 }} inputColor="gray">
                 Jours {challenge[0].remaining}/{challenge[0].duration}
               </Text>
             </>

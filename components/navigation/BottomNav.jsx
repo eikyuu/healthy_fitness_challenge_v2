@@ -16,7 +16,7 @@ function BottomNav() {
       initialRouteName="Accueil"
       activeColor="#FFFFFF"
       inactiveColor="#86ccac"
-      barStyle={{ backgroundColor: '#52B788'}}
+      barStyle={{ backgroundColor: '#52B788' }}
       screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
