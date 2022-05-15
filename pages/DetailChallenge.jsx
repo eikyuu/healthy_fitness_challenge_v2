@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { View } from 'react-native';
 import ImageBackground from '../styles/global/ImageBackground';
-import {database} from '../_service/database';
+import { database } from '../_service/database';
 import Text from '../styles/global/Text';
 import Container from '../styles/global/Container';
 import TitleChallenge from '../styles/page/challenge/TitleChallenge';
@@ -12,18 +12,36 @@ import ButtonValidate from '../styles/page/configChallenge/ButtonValidate';
 function DetailChallenge({ navigation, route }) {
   const { id } = route.params;
   const [forceUpdate, setForceUpdate] = useState(0);
-  const [challenge, setChallenge] = useState();
+  const [challenge, setChallenge] = useState([]);
   const [nextDay, setNextDay] = useState(0);
+  const [nav, setNav] = useState(false);
+
+  useEffect(() => {
+    if (nav)
+      navigation.navigate("home");
+    return () => {
+      setNav(false);
+    }
+  }, [nav]);
 
   useEffect(() => {
     // Return the function to unsubscribe from the event so it gets removed on unmount
-    return navigation.addListener('focus', () => {
-      database.fetchChallengeById(setChallenge, id);
-    });
+    const x = () => {
+        return  navigation.addListener('focus', () => {
+          database.fetchChallengeById(setChallenge, id, setNav);
+        });
+    }
+    x();
+    return () => {
+      setChallenge([]);
+    }
   }, [navigation, forceUpdate, id]);
 
   useEffect(() => {
-    database.fetchChallengeById(setChallenge, id);
+    database.fetchChallengeById(setChallenge, id, setNav);
+    return () => {
+      setChallenge([]);
+    }
   }, [forceUpdate]);
 
   useEffect(() => {
@@ -81,6 +99,32 @@ function DetailChallenge({ navigation, route }) {
     setForceUpdate(Math.random());
   };
 
+  const renderChallenge = () => {
+    if (challenge.length > 0)
+      return (
+          <React.Fragment>
+            <TitleChallenge>{challenge[0].name}</TitleChallenge>
+            <Text style={{ marginBottom: 10 }} inputColor="gray">
+              Jours {challenge[0].remaining}/{challenge[0].duration}
+            </Text>
+            <ButtonCheck challenge={challenge} setForceUpdate={setForceUpdate} />
+            {nbrRepetition()}
+            {challengeDone()}
+            {nextDay === -1 && challenge[0].remaining < challenge[0].duration && (
+                <TouchableOpacity
+                    onPress={() => {
+                      pushNextDay();
+                    }}
+                >
+                  <ButtonValidate>
+                    <Text>Finir le challenge pour aujourd'hui</Text>
+                  </ButtonValidate>
+                </TouchableOpacity>
+            )}
+          </React.Fragment>
+      )
+  }
+
   return (
     <ImageBackground
       source={require('../assets/images/backgroundImage.jpg')}
@@ -88,28 +132,7 @@ function DetailChallenge({ navigation, route }) {
     >
       <ScrollView>
         <Container>
-          {challenge && (
-            <>
-              <TitleChallenge>{challenge[0].name}</TitleChallenge>
-              <Text style={{ marginBottom: 10 }} inputColor="gray">
-                Jours {challenge[0].remaining}/{challenge[0].duration}
-              </Text>
-            </>
-          )}
-          <ButtonCheck challenge={challenge} setForceUpdate={setForceUpdate} />
-          {nbrRepetition()}
-          {challengeDone()}
-          {nextDay === -1 && challenge[0].remaining < challenge[0].duration && (
-            <TouchableOpacity
-              onPress={() => {
-                pushNextDay();
-              }}
-            >
-              <ButtonValidate>
-                <Text>Finir le challenge pour aujourd'hui</Text>
-              </ButtonValidate>
-            </TouchableOpacity>
-          )}
+          {renderChallenge()}
         </Container>
       </ScrollView>
     </ImageBackground>

@@ -33,7 +33,6 @@ function ConfigChallenge({ navigation, route }) {
     }
   }, []);
 
-
   const submit = () => {
     for (const property in value) {
       if (value[property].length <= 0) {

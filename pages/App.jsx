@@ -4,11 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import BottomNav from '../components/navigation/BottomNav';
 import useDatabase from '../_hooks/useDatabase';
 import { StatusBar } from 'expo-status-bar';
-import useHandleError from "../_hooks/useHandleError";
+import useHandleError from '../_hooks/useHandleError';
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const {errorHandler} = useHandleError();
+  const { errorHandler } = useHandleError();
   useEffect(() => {
     async function prepare() {
       try {

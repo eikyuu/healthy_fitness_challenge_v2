@@ -7,10 +7,10 @@ import Text from '../../styles/global/Text';
 import { database } from '../../_service/database';
 import { mediaImage } from '../../assets/images';
 import _ from 'lodash';
-import useErrorHandler from "../../_hooks/useHandleError";
+import useErrorHandler from '../../_hooks/useHandleError';
 
 function ButtonCheck({ challenge, setForceUpdate }) {
-  const {errorHandler} = useErrorHandler();
+  const { errorHandler } = useErrorHandler();
   // update db
   const handlerDoneExercise = (title) => {
     const exo = JSON.parse(challenge[0].exercise).filter(

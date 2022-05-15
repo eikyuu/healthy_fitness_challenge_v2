@@ -13,7 +13,7 @@ import Container from '../styles/global/Container';
 import Text from '../styles/global/Text';
 import TitleChallenge from '../styles/page/challenge/TitleChallenge';
 import { getAllExercises } from '../_service/exerciseDB';
-import useErrorHandler from "../_hooks/useHandleError";
+import useErrorHandler from '../_hooks/useHandleError';
 
 function Challenge({ navigation, toto }) {
   const [media, setMedia] = useState(undefined);
@@ -22,11 +22,9 @@ function Challenge({ navigation, toto }) {
   const { errorHandler } = useErrorHandler();
 
   const findElementIndex = (index, array) => {
-    const elementIndex = array.findIndex(
-        (element) => element.id === index.id,
-    );
+    const elementIndex = array.findIndex((element) => element.id === index.id);
     return elementIndex;
-  }
+  };
 
   const handleStyle = (elementIndex) => {
     return finalMedia[elementIndex]
@@ -46,7 +44,7 @@ function Challenge({ navigation, toto }) {
       } finally {
         setLoading(false);
       }
-    }
+    };
     fetchAllExercises();
   }, []);
 
@@ -77,7 +75,11 @@ function Challenge({ navigation, toto }) {
                     style={handleStyle(findElementIndex(index, finalMedia))}
                     onPress={() => {
                       const newArray = [...finalMedia];
-                      newFinalMedia(newArray, index.id, findElementIndex(index, media.data));
+                      newFinalMedia(
+                        newArray,
+                        index.id,
+                        findElementIndex(index, media.data),
+                      );
                     }}
                   >
                     <Image

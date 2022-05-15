@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {ScrollView} from 'react-native-gesture-handler';
-import {StyleSheet} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
+import { StyleSheet } from 'react-native';
 import Container from '../styles/global/Container';
 import ImageBackground from '../styles/global/ImageBackground';
 import TitleChallenge from '../styles/page/challenge/TitleChallenge';
-import {database} from '../_service/database';
+import { database } from '../_service/database';
 import AppleStyleSwipeableRow from '../components/AppleStyleSwipeableRow';
 
 function MyChallenge({ navigation }) {
-  const [challenges, setChallenges] = useState();
+  const [challenges, setChallenges] = useState([]);
   const [forceUpdate, setForceUpdate] = useState(0);
 
   useEffect(() => {
@@ -20,6 +20,9 @@ function MyChallenge({ navigation }) {
 
   useEffect(() => {
     database.fetchChallenge(setChallenges);
+    return () => {
+      setChallenges([]);
+    }
   }, [forceUpdate]);
 
   function SwipeableRow({ name, duration, remaining, id, navigation }) {

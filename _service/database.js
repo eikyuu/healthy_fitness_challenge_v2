@@ -111,14 +111,18 @@ const fetchChallenge = (setUserFunc) => {
   );
 };
 
-const fetchChallengeById = (setUserFunc, id) => {
+const fetchChallengeById = (setUserFunc, id, setNav) => {
   db.transaction(
     (tx) => {
       tx.executeSql(
         `select * from challenge where id=${id}`,
         [],
         (_, { rows: { _array } }) => {
-          setUserFunc(_array);
+            if (_array.length > 0) {
+                setUserFunc(_array);
+            } else {
+                setNav(true);
+            }
         },
       );
     },
