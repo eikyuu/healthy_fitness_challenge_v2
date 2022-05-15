@@ -4,7 +4,6 @@ import { View } from 'react-native';
 const ButtonValidate = styled(View)`
   background-color: white;
   height: 50px;
-  width: 350px;
   border-radius: 10px;
   border-width: 2px;
   border-color: #74c69d;

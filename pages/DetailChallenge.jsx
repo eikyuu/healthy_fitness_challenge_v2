@@ -103,7 +103,7 @@ function DetailChallenge({ navigation, route }) {
     if (challenge.length > 0)
       return (
           <React.Fragment>
-            <TitleChallenge>{challenge[0].name}</TitleChallenge>
+            <TitleChallenge style={{marginTop: "10%"}}>{challenge[0].name}</TitleChallenge>
             <Text style={{ marginBottom: 10 }} inputColor="gray">
               Jours {challenge[0].remaining}/{challenge[0].duration}
             </Text>

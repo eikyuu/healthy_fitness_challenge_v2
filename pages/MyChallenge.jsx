@@ -43,10 +43,10 @@ function MyChallenge({ navigation }) {
       source={require('../assets/images/backgroundImage.jpg')}
       resizeMode="cover"
     >
+        <TitleChallenge style={{marginTop: "10%"}}>Mes challenges</TitleChallenge>
+
       <ScrollView>
-        <Container>
-          <TitleChallenge>Mes challenges</TitleChallenge>
-        </Container>
+
         {challenges &&
           Object.values(challenges).map((item, index) => (
             <React.Fragment key={index.toString()}>

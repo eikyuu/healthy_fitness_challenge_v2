@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Container from '../styles/global/Container';
 import Text from '../styles/global/Text';
@@ -57,34 +57,53 @@ function ConfigChallenge({ navigation, route }) {
       source={require('../assets/images/backgroundImage.jpg')}
       resizeMode="cover"
     >
-      <ScrollView>
         <Container>
           <TitleChallenge>Configurer votre challenge</TitleChallenge>
-          <Text>Nom de votre challenge</Text>
-          <ButtonConfig
-            onChangeText={(text) => setValue({ ...value, name: text })}
-            value={value.name}
-          />
-          <Text>Durée du challenge</Text>
-          <ButtonConfig
-            onChangeText={(text) => setValue({ ...value, duration: text })}
-            value={value.duration}
-            keyboardType="numeric"
-          />
-          <Text>Première répétition</Text>
-          <ButtonConfig
-            onChangeText={(text) =>
-              setValue({ ...value, firstRepetition: text })
-            }
-            value={value.firstRepetition}
-            keyboardType="numeric"
-          />
-          <Text>Répétition en + par jour</Text>
-          <ButtonConfig
-            onChangeText={(text) => setValue({ ...value, repetition: text })}
-            value={value.repetition}
-            keyboardType="numeric"
-          />
+
+          <View style={styles.oneColumns}>
+            <Text>Nom de votre challenge</Text>
+            <ButtonConfig
+                onChangeText={(text) => setValue({ ...value, name: text })}
+                value={value.name}
+            />
+          </View>
+
+          <View style={styles.twoColumns}>
+            <View style={styles.columns}>
+              <Text>Durée du challenge</Text>
+              <ButtonConfig
+                  onChangeText={(text) => setValue({ ...value, duration: text })}
+                  value={value.duration}
+                  keyboardType="numeric"
+              />
+            </View>
+            <View style={styles.columns}>
+              <Text>Première répétition</Text>
+              <ButtonConfig
+                  onChangeText={(text) =>
+                      setValue({ ...value, firstRepetition: text })
+                  }
+                  value={value.firstRepetition}
+                  keyboardType="numeric"
+              />
+            </View>
+          </View>
+
+
+
+
+          <View style={styles.oneColumns}>
+
+            <Text>Répétition en + par jour</Text>
+            <ButtonConfig
+                onChangeText={(text) => setValue({ ...value, repetition: text })}
+                value={value.repetition}
+                keyboardType="numeric"
+            />
+
+
+          </View>
+
           <TouchableOpacity
             onPress={() => {
               submit();
@@ -94,6 +113,9 @@ function ConfigChallenge({ navigation, route }) {
               <Text>Suivant</Text>
             </ButtonValidate>
           </TouchableOpacity>
+
+
+
           <ButtonRecap>
             <View>
               <Text>Challenge {value.name}</Text>
@@ -103,9 +125,24 @@ function ConfigChallenge({ navigation, route }) {
             </View>
           </ButtonRecap>
         </Container>
-      </ScrollView>
     </ImageBackground>
   );
 }
+
+const styles = StyleSheet.create({
+  oneColumns : {
+    display: "flex",
+    width: "80%"
+  },
+  twoColumns : {
+    display: 'flex',
+    flexDirection : "row",
+    justifyContent: "space-between",
+    width: "80%",
+  },
+  columns : {
+    paddingRight: 5
+  }
+});
 
 export default ConfigChallenge;

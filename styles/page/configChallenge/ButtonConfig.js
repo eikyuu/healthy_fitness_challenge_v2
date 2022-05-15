@@ -1,17 +1,12 @@
 import styled from 'styled-components/native';
 
 const ButtonConfig = styled.TextInput`
+  height: 40px;
   background-color: #ffffff;
-  height: 50px;
-  width: 350px;
   border-radius: 10px;
   border-width: 2px;
   border-color: #74c69d;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0 10px 0;
 `;
 
 export default ButtonConfig;
