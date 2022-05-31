@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { StyleSheet } from 'react-native';
-import Container from '../styles/global/Container';
 import ImageBackground from '../styles/global/ImageBackground';
 import TitleChallenge from '../styles/page/challenge/TitleChallenge';
 import { database } from '../_service/database';
@@ -22,7 +21,7 @@ function MyChallenge({ navigation }) {
     database.fetchChallenge(setChallenges);
     return () => {
       setChallenges([]);
-    }
+    };
   }, [forceUpdate]);
 
   function SwipeableRow({ name, duration, remaining, id, navigation }) {
@@ -43,10 +42,11 @@ function MyChallenge({ navigation }) {
       source={require('../assets/images/backgroundImage.jpg')}
       resizeMode="cover"
     >
-        <TitleChallenge style={{marginTop: "10%"}}>Mes challenges</TitleChallenge>
+      <TitleChallenge style={{ marginTop: '10%' }}>
+        Mes challenges
+      </TitleChallenge>
 
       <ScrollView>
-
         {challenges &&
           Object.values(challenges).map((item, index) => (
             <React.Fragment key={index.toString()}>

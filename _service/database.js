@@ -118,11 +118,11 @@ const fetchChallengeById = (setUserFunc, id, setNav) => {
         `select * from challenge where id=${id}`,
         [],
         (_, { rows: { _array } }) => {
-            if (_array.length > 0) {
-                setUserFunc(_array);
-            } else {
-                setNav(true);
-            }
+          if (_array.length > 0) {
+            setUserFunc(_array);
+          } else {
+            setNav(true);
+          }
         },
       );
     },

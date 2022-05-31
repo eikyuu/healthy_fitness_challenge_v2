@@ -17,31 +17,30 @@ function DetailChallenge({ navigation, route }) {
   const [nav, setNav] = useState(false);
 
   useEffect(() => {
-    if (nav)
-      navigation.navigate("home");
+    if (nav) navigation.navigate('home');
     return () => {
       setNav(false);
-    }
+    };
   }, [nav]);
 
   useEffect(() => {
     // Return the function to unsubscribe from the event so it gets removed on unmount
     const x = () => {
-        return  navigation.addListener('focus', () => {
-          database.fetchChallengeById(setChallenge, id, setNav);
-        });
-    }
+      return navigation.addListener('focus', () => {
+        database.fetchChallengeById(setChallenge, id, setNav);
+      });
+    };
     x();
     return () => {
       setChallenge([]);
-    }
+    };
   }, [navigation, forceUpdate, id]);
 
   useEffect(() => {
     database.fetchChallengeById(setChallenge, id, setNav);
     return () => {
       setChallenge([]);
-    }
+    };
   }, [forceUpdate]);
 
   useEffect(() => {
@@ -102,28 +101,30 @@ function DetailChallenge({ navigation, route }) {
   const renderChallenge = () => {
     if (challenge.length > 0)
       return (
-          <React.Fragment>
-            <TitleChallenge style={{marginTop: "10%"}}>{challenge[0].name}</TitleChallenge>
-            <Text style={{ marginBottom: 10 }} inputColor="gray">
-              Jours {challenge[0].remaining}/{challenge[0].duration}
-            </Text>
-            <ButtonCheck challenge={challenge} setForceUpdate={setForceUpdate} />
-            {nbrRepetition()}
-            {challengeDone()}
-            {nextDay === -1 && challenge[0].remaining < challenge[0].duration && (
-                <TouchableOpacity
-                    onPress={() => {
-                      pushNextDay();
-                    }}
-                >
-                  <ButtonValidate>
-                    <Text>Finir le challenge pour aujourd'hui</Text>
-                  </ButtonValidate>
-                </TouchableOpacity>
-            )}
-          </React.Fragment>
-      )
-  }
+        <>
+          <TitleChallenge style={{ marginTop: '10%' }}>
+            {challenge[0].name}
+          </TitleChallenge>
+          <Text style={{ marginBottom: 10 }} inputColor="gray">
+            Jours {challenge[0].remaining}/{challenge[0].duration}
+          </Text>
+          <ButtonCheck challenge={challenge} setForceUpdate={setForceUpdate} />
+          {nbrRepetition()}
+          {challengeDone()}
+          {nextDay === -1 && challenge[0].remaining < challenge[0].duration && (
+            <TouchableOpacity
+              onPress={() => {
+                pushNextDay();
+              }}
+            >
+              <ButtonValidate>
+                <Text>Finir le challenge pour aujourd&apos;hui</Text>
+              </ButtonValidate>
+            </TouchableOpacity>
+          )}
+        </>
+      );
+  };
 
   return (
     <ImageBackground
@@ -131,9 +132,7 @@ function DetailChallenge({ navigation, route }) {
       resizeMode="cover"
     >
       <ScrollView>
-        <Container>
-          {renderChallenge()}
-        </Container>
+        <Container>{renderChallenge()}</Container>
       </ScrollView>
     </ImageBackground>
   );

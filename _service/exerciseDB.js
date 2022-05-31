@@ -1,11 +1,14 @@
 import axios from 'axios';
+import { API_KEY, API_URL } from '@env';
+
+console.log( API_URL);
 
 const options = {
   method: 'GET',
-  url: 'https://exercisedb.p.rapidapi.com/exercises',
+  url: `${API_URL}`,
   headers: {
     'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com',
-    'X-RapidAPI-Key': '7115ba4695msh5a6a71e67c0bb8cp11634djsnfeb4a0d2e360',
+    'X-RapidAPI-Key': `${API_KEY}`,
   },
 };
 

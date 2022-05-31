@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View,
-  Image,
   ScrollView,
   TouchableOpacity,
   StyleSheet,
@@ -14,8 +12,11 @@ import Text from '../styles/global/Text';
 import TitleChallenge from '../styles/page/challenge/TitleChallenge';
 import { getAllExercises } from '../_service/exerciseDB';
 import useErrorHandler from '../_hooks/useHandleError';
+import ContainerChallenges from '../styles/page/challenge/ContainerChallenges';
+import ButtonValidate from '../styles/page/challenge/ButtonValidate';
+import ImageChallenge from '../styles/page/challenge/ImageChallenge';
 
-function Challenge({ navigation, toto }) {
+function Challenge({ navigation }) {
   const [media, setMedia] = useState(undefined);
   const [finalMedia, setFinalMedia] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -66,7 +67,7 @@ function Challenge({ navigation, toto }) {
         <ScrollView>
           <Container>
             <TitleChallenge>Sélectionner au moins un exercice</TitleChallenge>
-            <View style={styles.containerChallenges}>
+            <ContainerChallenges>
               {media !== undefined &&
                 media.data.slice(0, 30).map((index) => (
                   <TouchableOpacity
@@ -82,16 +83,12 @@ function Challenge({ navigation, toto }) {
                       );
                     }}
                   >
-                    <Image
-                      style={styles.imageChallenge}
-                      source={{ uri: index.gifUrl }}
-                    />
+                    <ImageChallenge source={{ uri: index.gifUrl }} />
                   </TouchableOpacity>
                 ))}
-            </View>
+            </ContainerChallenges>
             {finalMedia.length > 0 ? (
-              <TouchableOpacity
-                style={styles.buttonValidate}
+              <ButtonValidate
                 onPress={() =>
                   navigation.navigate('configChallenge', {
                     exercise: finalMedia,
@@ -99,7 +96,7 @@ function Challenge({ navigation, toto }) {
                 }
               >
                 <Text>Suivant</Text>
-              </TouchableOpacity>
+              </ButtonValidate>
             ) : null}
           </Container>
         </ScrollView>
@@ -110,12 +107,6 @@ function Challenge({ navigation, toto }) {
 }
 
 const styles = StyleSheet.create({
-  containerChallenges: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
   buttonChallenge: {
     backgroundColor: '#FFFFFF',
     height: 100,
@@ -139,25 +130,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 5,
     flexDirection: 'row',
-  },
-  imageChallenge: {
-    height: 80,
-    width: 80,
-    resizeMode: 'contain',
-  },
-  buttonValidate: {
-    backgroundColor: 'white',
-    height: 40,
-    width: 350,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#74C69D',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    marginTop: 20,
-    textAlign: 'center',
-    marginBottom: 25,
   },
 });
 

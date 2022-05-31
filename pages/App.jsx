@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 import BottomNav from '../components/navigation/BottomNav';
 import useDatabase from '../_hooks/useDatabase';
-import { StatusBar } from 'expo-status-bar';
 import useHandleError from '../_hooks/useHandleError';
 
 export default function App() {
@@ -28,12 +28,12 @@ export default function App() {
   const isDBLoadingComplete = useDatabase();
   if (isDBLoadingComplete && appIsReady) {
     return (
-      <React.Fragment>
+      <>
         <StatusBar style="dark" />
         <NavigationContainer>
           <BottomNav />
         </NavigationContainer>
-      </React.Fragment>
+      </>
     );
   }
   return null;
